@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; connect-src 'self' https:// Gumroad.com; font-src 'self' https://fonts.gstatic.com;">
+<title>Articulate English — PWA Portal</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg-card: #111827;
+  --bg-card-hover: #1f2937;
+  --accent: #22d3ee;
+  --accent-dim: #0e7490;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --radius: 12px;
+  --max-w: 1200px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--accent), #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+header p {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid #1e293b;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-2px);
+}
+.card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--accent-dim), #312e81);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+.card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.card .tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  background: rgba(34, 211, 238, 0.1);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+}
+.card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--success);
+}
+.price span {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-dim);
+}
+.btn-gumroad {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-gumroad:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--success);
+  margin-top: 0.75rem;
+}
+.status-badge::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  border-top: 1px solid #1e293b;
+}
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  header h1 { font-size: 1.75rem; }
+  .portal-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Articulate English</h1>
+  <p>Progressive Web Apps — installable, offline-ready tools for language learning and beyond.</p>
+</header>
+
+<main class="portal-grid">
+
+  <div class="card">
+    <div class="card-icon">🎸</div>
+    <span class="tag">Music</span>
+    <h2>Alien Guitar Tuner</h2>
+    <p>Cosmic guitar tuner with precise pitch detection and alternate tunings. Works offline, installable on any device.</p>
+    <div class="card-footer">
+      <div class="price">Free</div>
+      <a href="#" class="btn-gumroad" data-product="alien-tuner">Get on Gumroad</a>
+    </div>
+    <div class="status-badge">Ready — Installable PWA</div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🥁</div>
+    <span class="tag">Music</span>
+    <h2>Alien Metronome</h2>
+    <p>A cosmic metronome with MAGDA-style FX, alien synth, and theremin. Features advanced rhythm patterns and haptic feedback.</p>
+    <div class="card-footer">
+      <div class="price">Free</div>
+      <a href="#" class="btn-gumroad" data-product="alien-metronome">Get on Gumroad</a>
+    </div>
+    <div class="status-badge">Ready — Installable PWA</div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🎓</div>
+    <span class="tag">Education</span>
+    <h2>IELTS Speaking Practice</h2>
+    <p>12 topic-based IELTS speaking practice decks covering Part 1 interview, Part 2 long turn and Part 3 discussion — with vocabulary, model answers and homework.</p>
+    <div class="card-footer">
+      <div class="price">$4.99</div>
+      <a href="#" class="btn-gumroad" data-product="ielts-practice">Get on Gumroad</a>
+    </div>
+    <div class="status-badge">Ready — Installable PWA</div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🌱</div>
+    <span class="tag">Business</span>
+    <h2>Tesselaarsdal Syntropic Farm</h2>
+    <p>Investment proposal and business plan for a self-sustaining syntropic farm in the Western Cape, South Africa.</p>
+    <div class="card-footer">
+      <div class="price">$0.99</div>
+      <a href="#" class="btn-gumroad" data-product="tesselaarsdal">Get on Gumroad</a>
+    </div>
+    <div class="status-badge">Ready — Installable PWA</div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Articulate English — Built by one teacher, for learners everywhere.</p>
+  <p style="margin-top:0.5rem;">More apps coming soon.</p>
+</footer>
+
+<script>
+// Gumroad product URLs — populated from data attributes
+// Replace href="#" with actual Gumroad product URLs when available
+document.querySelectorAll('.btn-gumroad').forEach(function(btn) {
+  btn.addEventListener('click', function(e) {
+    if (btn.getAttribute('href') === '#') {
+      e.preventDefault();
+      var product = btn.getAttribute('data-product');
+      alert('Gumroad product "' + product + '" coming soon.\n\nSet up your Gumroad products and update the links in index.html.');
+    }
+  });
+});
+</script>
+</body>
+</html>
