@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
 <style>
-:root{--purple:#8b5cf6;--accent2:#22d3ee;--text-cream:#f4f1ea;--text-dim:rgba(244,241,234,.5);--bg:#000;--mark-ring:rgba(255,255,255,.85);}
+:root{--purple:#8b5cf6;--accent2:#22d3ee;--text-cream:#f4f1ea;--text-dim:rgba(244,241,234,.5);--bg:#000;--mark-ring:rgba(255,255,255,.85)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto}
 body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -25,14 +25,15 @@ body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif
 .room{position:relative}
 .sticky{position:sticky;top:0;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:10}
 
+/* ── INTRO TYPE ── */
 .name-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:6;opacity:0}
 .name-text{font-family:'Roboto Flex',sans-serif;font-size:clamp(3.5rem,10vw,7rem);font-weight:700;color:var(--text-cream);text-transform:uppercase;letter-spacing:.05em}
 .name-char{display:inline-block;opacity:0;transform:translateY(20px)}
-
 .title-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:6;opacity:0;transform:translateY(150px)}
 .title-role{font-family:'Roboto Flex',sans-serif;font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:600;color:var(--purple);letter-spacing:.12em;text-transform:uppercase}
 .title-slogan{font-family:'Roboto Flex',sans-serif;font-size:clamp(2.4rem,5.6vw,4rem);color:var(--text-cream);letter-spacing:.04em;text-align:center}
 
+/* ── GALLERY ── */
 #galleryRoom{position:absolute;inset:0;z-index:30;perspective:1200px;display:flex;align-items:center;justify-content:center}
 .card-ring{position:relative;width:100%;height:100%;transform-style:preserve-3d;display:flex;align-items:center;justify-content:center}
 .ring-card{position:absolute;left:50%;top:50%;width:420px;height:280px;margin-left:-210px;margin-top:-140px;transform-style:preserve-3d;cursor:pointer}
@@ -41,58 +42,53 @@ body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif
 .ring-card-reflect img{width:100%;height:100%;object-fit:cover;transform:scaleY(-1);opacity:.55;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 40%,transparent 95%);mask-image:linear-gradient(to bottom,#000 0%,#000 40%,transparent 95%)}
 .ring-card-front{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:12px;background:#0a0a12}
 .ring-card-front img{width:100%;height:100%;object-fit:cover;border-radius:12px}
-.ring-card-title{font-family:'Oswald',sans-serif;font-size:1.5rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-cream);text-align:center;line-height:1.2}
-#cardInfo{position:fixed;top:50%;left:50%;transform:translate(-50%,-185px);z-index:45;text-align:center;pointer-events:none;transition:opacity .4s ease;opacity:0}
-.card-name{font-family:'Oswald',sans-serif;font-size:1.4rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-cream);background:rgba(3,3,10,.75);padding:.4rem 1.5rem;border-radius:8px;border:1px solid rgba(139,92,246,.25)}
 .ring-card:hover .ring-card-inner{box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 0 3px rgba(160,130,255,.3),0 20px 60px rgba(0,0,0,.6)}
 
-.phase-dots{position:fixed;right:1.5rem;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:.8rem}
-.dot{width:10px;height:10px;border-radius:50%;background:rgba(244,241,234,.2);border:1px solid rgba(244,241,234,.1);cursor:pointer;transition:background .3s,transform .3s;padding:0;position:relative}
-.dot::after{content:'';position:absolute;inset:-17px}
-.dot.active{background:radial-gradient(circle,rgba(200,170,255,.9) 20%,var(--purple) 55%,rgba(139,92,246,.3) 100%);border-color:var(--purple);transform:scale(1.3)}
+/* card caption */
+.card-cap{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.1rem;background:rgba(3,3,10,.9);border-top:1px solid rgba(139,92,246,.32);display:flex;flex-direction:column;gap:.7rem;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease}
+.ring-card.is-active .card-cap{opacity:1;transform:none}
+.card-cap-top{display:flex;align-items:baseline;justify-content:space-between;gap:.9rem}
+.card-cap-title{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.25;text-transform:uppercase;letter-spacing:.04em;color:var(--text-cream)}
+.card-cap-price{font-family:'Oswald',sans-serif;font-size:1.05rem;color:#c4b5fd;white-space:nowrap}
+.card-buy{align-self:flex-start;display:inline-block;background:#c0392b;color:#fff;text-decoration:none;padding:.55rem 1.05rem;border-radius:8px;font-size:1rem;font-weight:600;line-height:1.25;transition:background .2s}
+.card-buy:hover{background:#9a3412}
+.card-soon{align-self:flex-start;font-size:1rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim)}
 
-.top-nav{position:fixed;top:0;left:0;right:0;z-index:45;height:3.5rem;opacity:0;pointer-events:none;transition:opacity .5s;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:space-between;padding:0 1.6rem 0 1.6rem}
-.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:0 0 auto}
-.nav-mark{display:block;width:28px;height:28px}
-.nav-mark svg{display:block;width:100%;height:100%}
-.nav-logo-text{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:var(--text-cream)}
-.nav-links{display:flex;gap:1.5rem;align-items:center}
-.nav-links a{font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;color:var(--text-dim);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:color .3s}
-.nav-links a:hover{color:var(--purple)}
-.nav-cta{color:var(--purple)!important}
+.gallery-floor{position:fixed;bottom:0;left:0;right:0;height:38vh;z-index:1;opacity:0;pointer-events:none;transition:opacity .8s;background:#000}
+.gallery-floor.visible{opacity:1}
 
-.theme-toggle{position:relative;width:56px;height:30px;border-radius:999px;border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.12);cursor:pointer;padding:0;flex:0 0 auto}
+/* ── THEME TOGGLE (standalone, top-right) ── */
+.theme-toggle{position:fixed;top:1.1rem;right:1.1rem;z-index:60;width:56px;height:30px;border-radius:999px;border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.12);cursor:pointer;padding:0}
 .theme-toggle::after{content:'';position:absolute;inset:-8px;border-radius:999px}
 .theme-toggle .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--purple);transition:transform .38s cubic-bezier(.4,0,.2,1)}
 .theme-toggle .ico{position:absolute;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:rgba(244,241,234,.75);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .theme-toggle .ico-sun{left:7px}
 .theme-toggle .ico-moon{right:7px}
 
-.section-buttons{position:fixed;bottom:calc((50vh - 140px) * 2 / 3);left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:1rem;opacity:0;pointer-events:none;transition:opacity .6s}
-.sect-btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.6em 1.8em;border-radius:999px;font-family:'Inter',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.05em;text-decoration:none;color:var(--text-cream);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);transition:background .3s,border-color .3s,transform .3s}
-.sect-btn:hover{background:rgba(139,92,246,.2);border-color:rgba(139,92,246,.4);transform:translateY(-2px)}
-.sect-btn.primary{background:var(--purple);border-color:var(--purple)}
+/* ── BUY BUTTONS beneath the cards ── */
+.card-actions{position:relative;z-index:20;background:#000;border-top:1px solid rgba(139,92,246,.18);padding:3.4rem 2rem 4.5rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+.buy-btn{display:flex;flex-direction:column;align-items:center;gap:.3rem;min-width:210px;padding:1rem 1.6rem;border-radius:14px;background:#0a0a12;border:1px solid rgba(139,92,246,.28);color:var(--text-cream);text-decoration:none;transition:border-color .25s,transform .25s}
+.buy-btn:hover{border-color:var(--purple);transform:translateY(-2px)}
+.buy-btn.primary{background:var(--purple);border-color:var(--purple)}
+.buy-btn.primary:hover{background:#7c3aed}
+.buy-btn.soon{opacity:.78}
+.buy-label{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.buy-amt{font-family:'Oswald',sans-serif;font-size:1.25rem;color:#c4b5fd}
+.buy-btn.primary .buy-amt{color:#fff}
 
-.gallery-floor{position:fixed;bottom:0;left:0;right:0;height:38vh;z-index:1;opacity:0;pointer-events:none;transition:opacity .8s;background:#000}
-.gallery-floor.visible{opacity:1}
-#varprox{position:fixed;top:0;left:0;right:0;height:25vh;z-index:42;display:flex;align-items:center;justify-content:center;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 2.5s}
-#varprox.visible{opacity:1}
-#varprox .variable-proximity{font-family:'Roboto Flex',sans-serif;font-size:clamp(2rem,8vw,6rem);font-weight:400;letter-spacing:.04em;line-height:1.2;text-align:center;white-space:nowrap;color:rgba(91,77,255,.8);user-select:none;-webkit-user-select:none}
-
+/* ── SCROLL ROOM HEIGHTS ── */
 .r1h{height:700vh}.r2h{height:900vh}.r3h{height:800vh}.r4h{height:400vh}.r5h{height:120vh}.r6h{height:1400vh}
 @media(max-width:768px){.r1h{height:400vh}.r2h{height:900vh}.r3h{height:600vh}.r4h{height:200vh}.r5h{height:80vh}}
 @media(max-height:560px){.r6h{height:700vh}}
 
-.menu-toggle{display:none}
-@media(max-width:768px){
-  .top-nav{justify-content:space-between;padding:0 1rem}
-  .nav-links{display:none}
-  .menu-toggle{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;padding:0;background:none;border:0;cursor:pointer}
-  .menu-toggle span{display:block;width:22px;height:2px;background:var(--text-cream);border-radius:2px;transition:transform .3s ease,opacity .3s ease}
-  .menu-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .menu-toggle.open span:nth-child(2){opacity:0}
-  .menu-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  #cardInfo{display:none}
+/* ── LANDSCAPE PROMPT ── */
+.landscape-overlay{display:none}
+@media(max-width:768px) and (orientation:portrait){
+  .landscape-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;text-align:center;padding:2rem}
+  .landscape-overlay .lo-icon{font-size:3rem}
+  .landscape-overlay h2{font-family:'Oswald',sans-serif;font-size:1.4rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-cream)}
+  .landscape-overlay p{font-family:'Inter',sans-serif;font-size:1rem;color:var(--text-dim);max-width:320px;line-height:1.6}
+  .landscape-overlay .lo-btn{padding:.7em 2em;border-radius:999px;border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.15);color:var(--text-cream);font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;min-height:44px}
 }
 @media(orientation:portrait){
   .name-text{line-height:1.12;text-align:center}
@@ -106,95 +102,15 @@ body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif
   .ring-card{position:relative;left:auto;top:auto;width:80vw;height:53vw;max-width:400px;max-height:270px;margin:0;flex:0 0 auto;scroll-snap-align:center;scroll-snap-stop:always;transform:none!important;opacity:1!important;pointer-events:auto!important;z-index:auto!important}
   .ring-card-reflect{display:none}
 }
-.menu-backdrop{position:fixed;top:3.5rem;left:0;right:0;bottom:0;z-index:104;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .3s ease}
-.menu-backdrop.open{opacity:1;pointer-events:auto}
-.mobile-menu{position:fixed;top:3.5rem;right:0;bottom:0;width:min(280px,80vw);z-index:110;display:flex;flex-direction:column;gap:1.1rem;padding:2.2rem 1.8rem;background:rgba(10,10,20,.96);border-left:1px solid rgba(139,92,246,.25);box-shadow:-10px 0 40px rgba(0,0,0,.5);transform:translateX(105%);visibility:hidden;pointer-events:none;transition:transform .35s ease,visibility 0s .35s}
-.mobile-menu.open{transform:translateX(0);visibility:visible;pointer-events:auto;transition:transform .35s ease,visibility 0s}
-.mobile-menu a{font-family:'Inter',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,.9);padding:.7rem .4rem;border-bottom:1px solid rgba(255,255,255,.06);transition:color .3s}
-.mobile-menu a:hover{color:var(--purple)}
-.mobile-menu a.nav-cta{color:var(--purple)}
 
+/* ── LOADER ── */
 .loading-screen{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
 .label-sm{font-family:'Inter',sans-serif;font-size:.95rem;color:#b794f4;letter-spacing:.12em;text-transform:uppercase;animation:pulseGlow 1.8s ease-in-out infinite}
 @keyframes pulseGlow{0%,100%{opacity:.75}50%{opacity:1}}
 .dna-helix{display:flex;align-items:center;justify-content:center;height:140px;position:relative;perspective:400px}
 .dna-base{width:12px;height:110px;border-radius:4px;margin:0 14px;position:relative;transform-origin:center center;opacity:.2;filter:blur(2px);background-color:#2d1255;background-image:linear-gradient(to top,#22d3ee 0%,#8b5cf6 40%,#4c1d95 100%);background-size:0% 100%;background-repeat:no-repeat;will-change:transform,opacity,background-size,box-shadow}
 
-.landscape-overlay{display:none}
-@media(max-width:768px) and (orientation:portrait){
-  .landscape-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;text-align:center;padding:2rem}
-  .landscape-overlay .lo-icon{font-size:3rem}
-  .landscape-overlay h2{font-family:'Oswald',sans-serif;font-size:1.4rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-cream)}
-  .landscape-overlay p{font-family:'Inter',sans-serif;font-size:1rem;color:var(--text-dim);max-width:320px;line-height:1.6}
-  .landscape-overlay .lo-btn{padding:.7em 2em;border-radius:999px;border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.15);color:var(--text-cream);font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;min-height:44px}
-}
-
-/* ── CONTENT SECTIONS (after the scroll experience) ── */
-.content-room{position:relative;z-index:20;background:#000;padding:6rem 0;border-top:1px solid rgba(139,92,246,.18)}
-.content-inner{max-width:1080px;margin:0 auto;padding:0 2rem}
-.sec-head{text-align:center;max-width:760px;margin:0 auto 3rem;padding:0 2rem}
-.sec-head h2{font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
-.sec-head p{color:var(--text-dim);font-size:1.05rem}
-.pg-grid{max-width:1080px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
-@media(max-width:768px){.pg-grid{grid-template-columns:1fr}}
-.toy{background:#0a0a12;border:1px solid rgba(139,92,246,.22);border-radius:18px;padding:1.6rem}
-.toy h3{font-family:'Oswald',sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
-.toy>p{color:var(--text-dim);font-size:1rem;margin-bottom:1rem}
-.toy-wide{grid-column:1/-1}
-.bubbles{position:relative;height:210px}
-.bubble{position:absolute;padding:.7em 1.2em;border-radius:999px;border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.18);color:var(--text-cream);font-weight:600;font-size:.95rem;cursor:pointer;animation:floaty 4s ease-in-out infinite alternate;user-select:none;transition:transform .3s cubic-bezier(.2,1.4,.4,1),opacity .3s}
-@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-15px)}}
-.bubble.pop{animation:none;transform:scale(1.7);opacity:0}
-.flips{display:flex;gap:.9rem;flex-wrap:wrap}
-.flip{width:120px;height:156px;perspective:800px;cursor:pointer;outline:none}
-.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1)}
-.flip.on .flip-inner{transform:rotateY(180deg)}
-.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:.7rem;text-align:center;font-weight:600;font-size:.95rem;border:1px solid rgba(139,92,246,.3);line-height:1.3}
-.flip-front{background:rgba(139,92,246,.18);color:var(--text-cream)}
-.flip-back{background:rgba(34,211,238,.18);color:var(--text-cream);transform:rotateY(180deg);font-weight:500;font-size:.9rem}
-.sort-buckets{display:flex;gap:1rem;margin-bottom:1.2rem}
-.bucket{flex:1;border:1px dashed rgba(139,92,246,.35);border-radius:12px;padding:.8rem;text-align:center;font-family:'Oswald',sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.12em;color:#b794f4;background:transparent;cursor:pointer;min-height:58px;transition:background .25s,border-color .25s}
-.bucket:hover{background:rgba(139,92,246,.16);border-color:var(--purple)}
-.bucket.good{background:rgba(74,222,128,.22);border-color:#4ade80}
-.bucket.bad{background:rgba(244,63,94,.22);border-color:#f43f5e}
-.sort-chips{display:flex;gap:.55rem;flex-wrap:wrap}
-.chip{padding:.7em 1.2em;border-radius:999px;border:1px solid rgba(139,92,246,.3);background:rgba(255,255,255,.06);color:var(--text-cream);font-size:.95rem;font-weight:600;cursor:pointer;transition:transform .2s,background .2s}
-.chip:hover{transform:translateY(-2px)}
-.chip.sel{background:var(--purple);border-color:transparent;transform:scale(1.06)}
-.chip.shake{animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
-.pg-feedback{margin-top:1rem;font-size:1rem;color:#b794f4;min-height:1.4em;font-weight:600}
-
-.detail-room{position:relative;z-index:20;background:#000;border-top:1px solid rgba(139,92,246,.18);padding:6rem 0}
-.detail-inner{max-width:1080px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:3.4rem;align-items:center}
-.detail-room.rev .detail-inner{direction:rtl}
-.detail-room.rev .detail-inner>*{direction:ltr}
-@media(max-width:768px){.detail-inner{grid-template-columns:1fr;gap:2rem}.detail-room.rev .detail-inner{direction:ltr}}
-.detail-art{aspect-ratio:4/3;border-radius:18px;border:1px solid rgba(139,92,246,.25);overflow:hidden;background:#0a0a12}
-.detail-art img{width:100%;height:100%;object-fit:cover;display:block}
-.detail-tag{font-family:'Oswald',sans-serif;font-size:.875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent2);margin-bottom:.8rem}
-.detail-title{font-family:'Oswald',sans-serif;font-size:clamp(1.7rem,3.6vw,2.5rem);text-transform:uppercase;letter-spacing:.03em;line-height:1.1;margin-bottom:1rem}
-.detail-body{color:var(--text-dim);font-size:1.05rem;margin-bottom:1.2rem}
-.detail-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.4rem}
-.detail-list li{position:relative;padding-left:1.5rem;color:var(--text-dim);font-size:1rem}
-.detail-list li::before{content:'';position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--purple)}
-.detail-foot{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
-.detail-price{font-family:'Oswald',sans-serif;font-size:1.9rem;color:#b794f4}
-
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;max-width:1000px;margin:0 auto;padding:0 2rem}
-.tier{background:#0a0a12;border:1px solid rgba(139,92,246,.22);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;gap:.7rem;position:relative}
-.tier.featured{border-color:var(--purple)}
-.tier.featured::after{content:'BEST VALUE';position:absolute;top:-.8rem;left:50%;transform:translateX(-50%);font-family:'Oswald',sans-serif;font-size:.65rem;letter-spacing:.2em;background:var(--purple);color:#fff;padding:.3em 1em;border-radius:999px}
-.tier h3{font-family:'Oswald',sans-serif;font-size:1.2rem;text-transform:uppercase;letter-spacing:.06em}
-.tier .amt{font-family:'Oswald',sans-serif;font-size:2.4rem;color:#b794f4}
-.tier .amt small{font-size:.85rem;color:var(--text-dim);font-weight:400}
-.tier p{color:var(--text-dim);font-size:1rem;flex:1}
-.btn-gumroad{display:inline-block;text-align:center;background:#c0392b;color:#fff;text-decoration:none;padding:.85rem 1.4rem;border-radius:10px;font-weight:600;font-size:.95rem;transition:background .2s,transform .2s}
-.btn-gumroad:hover{background:#9a3412;transform:translateY(-1px)}
-
-.site-footer{position:relative;z-index:20;background:#000;border-top:1px solid rgba(139,92,246,.18);padding:3.4rem 2rem;text-align:center;color:var(--text-dim);font-size:.95rem}
-.site-footer a{color:var(--accent2);text-decoration:none}
-
+/* ── A11Y ── */
 .skip-link{position:absolute;top:-100px;left:1rem;z-index:99999;background:var(--purple);color:#fff;padding:.7rem 1.2rem;border-radius:999px;font-weight:600;text-decoration:none;transition:top .3s}
 .skip-link:focus{top:1rem}
 a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent2);outline-offset:3px;border-radius:6px}
@@ -205,19 +121,19 @@ html[data-theme="light"] body{background:var(--bg);color:var(--text-cream)}
 html[data-theme="light"] .ring-card-inner{background:#fff;box-shadow:0 10px 40px rgba(76,29,149,.16)}
 html[data-theme="light"] .ring-card-front{background:#fff}
 html[data-theme="light"] .ring-card-reflect{background:var(--bg)}
-html[data-theme="light"] .gallery-floor,html[data-theme="light"] .content-room,html[data-theme="light"] .detail-room,html[data-theme="light"] .site-footer{background:var(--bg)}
-html[data-theme="light"] .top-nav{background:rgba(245,243,255,.95)}
-html[data-theme="light"] .card-name{background:rgba(255,255,255,.92);color:var(--text-cream)}
-html[data-theme="light"] .toy,html[data-theme="light"] .tier,html[data-theme="light"] .detail-art{background:#fff}
-html[data-theme="light"] .chip{background:rgba(255,255,255,.85)}
-html[data-theme="light"] .mobile-menu{background:rgba(245,243,255,.97)}
-html[data-theme="light"] .mobile-menu a{color:rgba(23,17,41,.9)}
-html[data-theme="light"] .dot{background:rgba(23,17,41,.18)}
-html[data-theme="light"] #varprox .variable-proximity{color:rgba(124,58,237,.75)}
+html[data-theme="light"] .gallery-floor{background:var(--bg)}
+html[data-theme="light"] .card-cap{background:rgba(255,255,255,.94);border-top-color:rgba(76,29,149,.2)}
+html[data-theme="light"] .card-cap-price{color:#5b21b6}
+html[data-theme="light"] .card-cap-title{color:var(--text-cream)}
+html[data-theme="light"] .theme-toggle{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.35)}
+html[data-theme="light"] .theme-toggle .ico{stroke:rgba(23,17,41,.7)}
+html[data-theme="light"] .card-actions{background:var(--bg);border-top-color:rgba(76,29,149,.2)}
+html[data-theme="light"] .buy-btn{background:#fff;border-color:rgba(76,29,149,.25)}
+html[data-theme="light"] .buy-btn.primary{background:#7c3aed;border-color:#7c3aed}
+html[data-theme="light"] .buy-amt{color:#5b21b6}
+html[data-theme="light"] .buy-btn.primary .buy-amt{color:#fff}
 html[data-theme="light"] .label-sm{color:#6d28d9}
 html[data-theme="light"] .dna-base{background-color:#e9e4ff}
-html[data-theme="light"] .sect-btn{background:rgba(23,17,41,.05);border-color:rgba(23,17,41,.15);color:var(--text-cream)}
-html[data-theme="light"] .menu-backdrop{background:rgba(23,17,41,.35)}
 html[data-theme="light"] .landscape-overlay{background:rgba(245,243,255,.98)}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -263,106 +179,22 @@ html[data-theme="light"] .landscape-overlay{background:rgba(245,243,255,.98)}
 <section class="room r6h" id="r6">
   <div class="sticky">
     <section id="galleryRoom"><div class="card-ring" id="cardRing"></div></section>
-    <div id="cardInfo"><div class="card-name" id="cardName"></div></div>
   </div>
 </section>
 
-<nav class="top-nav" id="topNav">
-  <a href="#r1" class="nav-logo"><span class="nav-mark" aria-hidden="true"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#22d3ee" stroke="var(--mark-ring)" stroke-width="3.5"/><path d="M50 26 L74 72 L61 72 L50 48 L39 72 L26 72 Z" fill="#fff"/><rect x="37" y="52" width="26" height="8" rx="2" fill="#fff" opacity=".72"/></svg></span><span class="nav-logo-text">Articulate</span></a>
-  <span class="nav-links">
-    <a href="#playground">Playground</a>
-    <a href="#materials">Materials</a>
-    <a href="#pricing" class="nav-cta">Get the library</a>
-    <button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" aria-pressed="false">
-      <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      <span class="knob"></span>
-    </button>
-  </span>
-  <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
-</nav>
-<div class="menu-backdrop" id="menuBackdrop"></div>
-<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile menu">
-  <a href="#playground">Playground</a>
-  <a href="#materials">Materials</a>
-  <a href="#pricing" class="nav-cta">Get the library</a>
-</nav>
 <div class="gallery-floor" id="galleryFloor"></div>
-<div id="varprox" aria-hidden="true"></div>
-<div class="section-buttons" id="sectionButtons">
-  <a href="#playground" class="sect-btn">Playground</a>
-  <a href="#materials" class="sect-btn">Materials</a>
-  <a href="#pricing" class="sect-btn primary">Get the library</a>
-</div>
 
-<nav class="phase-dots" id="phaseDots" aria-label="Phase navigation">
-  <button class="dot active" data-room="r1" aria-label="Loading"></button>
-  <button class="dot" data-room="r2" aria-label="Particles"></button>
-  <button class="dot" data-room="r3" aria-label="Name"></button>
-  <button class="dot" data-room="r4" aria-label="Title"></button>
-  <button class="dot" data-room="r5" aria-label="Transition"></button>
-  <button class="dot" data-room="r6" aria-label="Collections"></button>
-</nav>
+<button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" aria-pressed="false">
+  <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <span class="knob"></span>
+</button>
 
-<section class="content-room" id="playground">
-  <div class="sec-head">
-    <h2>Try a taste of class</h2>
-    <p>Lessons are hands-on. Pop a word, flip a card, sort a phrase — this is the feel of a session.</p>
-  </div>
-  <div class="pg-grid">
-    <div class="toy">
-      <h3>Pop the words</h3>
-      <p>Tap a bubble. Vocabulary sticks when it is fun.</p>
-      <div class="bubbles" id="bubbles"></div>
-    </div>
-    <div class="toy">
-      <h3>Flip the card</h3>
-      <p>Tap to reveal the meaning — the classic vocab drill.</p>
-      <div class="flips" id="flips"></div>
-    </div>
-    <div class="toy toy-wide">
-      <h3>Sort the phrase</h3>
-      <p>Pick a phrase, then choose where it belongs. Real exam skill, playful practice.</p>
-      <div class="sort-buckets" id="buckets"></div>
-      <div class="sort-chips" id="chips"></div>
-      <div class="pg-feedback" id="pgFeedback" aria-live="polite">Pick a phrase to begin.</div>
-    </div>
-  </div>
+<section class="card-actions" id="buyActions">
+  <a class="buy-btn" href="#" data-bundle="single-deck"><span class="buy-label">Buy a deck</span><span class="buy-amt">$2.99</span></a>
+  <a class="buy-btn" href="#" data-bundle="level-bundle"><span class="buy-label">Buy a level</span><span class="buy-amt">$12.99</span></a>
+  <a class="buy-btn primary" href="#" data-bundle="full-library"><span class="buy-label">Get the library</span><span class="buy-amt">$49</span></a>
 </section>
-
-<div id="materials"></div>
-
-<section class="content-room" id="pricing">
-  <div class="sec-head">
-    <h2>Choose your climb</h2>
-    <p>Buy a single collection, a level bundle, or the whole library. Instant access, works offline.</p>
-  </div>
-  <div class="tiers">
-    <div class="tier">
-      <h3>Single Collection</h3>
-      <div class="amt">$2.99<small> / deck</small></div>
-      <p>Pick any one topic deck. Perfect for testing the water on a single speaking theme.</p>
-      <a href="#" class="btn-gumroad" data-product="single-deck">Buy a deck</a>
-    </div>
-    <div class="tier">
-      <h3>Level Bundle</h3>
-      <div class="amt">$12.99<small> / level</small></div>
-      <p>Everything at one CEFR level — every speaking, grammar and exam deck for that stage.</p>
-      <a href="#" class="btn-gumroad" data-product="level-bundle">Buy a level</a>
-    </div>
-    <div class="tier featured">
-      <h3>Full Library Pass</h3>
-      <div class="amt">$49<small> / once</small></div>
-      <p>All collections, every level, every future update. The complete Articulate library.</p>
-      <a href="#" class="btn-gumroad" data-product="full-library">Get the library</a>
-    </div>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <p>Articulate English — built by one teacher, for learners everywhere.</p>
-  <p style="margin-top:.6rem"><a href="mailto:hello@articulate-english.com">hello@articulate-english.com</a></p>
-</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
@@ -530,12 +362,7 @@ function splitToChars(el,cls){
 var nameVPChars=splitToChars(nameText,'name-char');
 var roleVPChars=splitToChars(roleText,'vp-char');
 var sloganVPChars=splitToChars(sloganText,'vp-char');
-var projectsEl=document.getElementById('varprox');
-var projectsSpan=document.createElement('span');
-projectsSpan.className='variable-proximity';
-projectsEl.appendChild(projectsSpan);
-var projectsVPChars=splitToChars(projectsSpan,'vp-char');
-var allVPChars=[].concat(nameVPChars,roleVPChars,sloganVPChars,projectsVPChars);
+var allVPChars=[].concat(nameVPChars,roleVPChars,sloganVPChars);
 var nameRevealCount=0;
 
 var TITLE_PAD=40;
@@ -567,84 +394,86 @@ function updateAllVP(){
   });
 }
 
-/* ═══ GALLERY (real ESL screenshots) ═══ */
+/* ═══ GALLERY — sale items only: title + price + buy, on the card ═══ */
+/* Add your real Gumroad product URLs here (https://<you>.gumroad.com/l/<id>).
+   An empty entry shows an honest "On Gumroad soon" label instead of a dead button. */
+var GUMROAD_URLS={
+  'ielts-speaking-mastery':'',
+  'ielts-writing-essays':'',
+  'ielts-slide-decks':'',
+  'b1-grammar-lessons':'',
+  'b2-grammar-lessons':'',
+  'linking-words-collection':'',
+  'sliding-in':''
+};
+
 var cardData=[
-  {name:'IELTS Speaking Mastery',img:'assets/cards/ielts-speaking-portal.webp',url:'#materials'},
-  {name:'IELTS Writing & Essays',img:'assets/cards/ielts-writing-essays.webp',url:'#materials'},
-  {name:'IELTS Slide Decks',img:'assets/cards/ielts-speaking.webp',url:'#materials'},
-  {name:'B1 Grammar Lessons',img:'assets/cards/b1-grammar.webp',url:'#materials'},
-  {name:'B2 Grammar Lessons',img:'assets/cards/b2-grammar.webp',url:'#materials'},
-  {name:'Linking Words B1\u2013C2',img:'assets/cards/linking-words.webp',url:'#materials'},
-  {name:'Speaking: Sliding In',img:'assets/cards/sliding-in.webp',url:'#materials'},
-  {name:'VocabForge',img:'assets/cards/vocab-forge.webp',url:'#materials'},
-  {name:'Online Whiteboard',img:'assets/cards/whiteboard.webp',url:'#materials'},
-  {name:'Video Lesson Maker',img:'assets/cards/video-lesson-maker.webp',url:'#materials'},
-  {name:'Video Call Classroom',img:'assets/cards/video-call.webp',url:'#materials'},
-  {name:'Language Tool',img:'assets/cards/language-tool.webp',url:'#materials'}
+  {name:'IELTS Speaking Mastery',img:'assets/cards/ielts-speaking-portal.webp',price:'$29',slug:'ielts-speaking-mastery'},
+  {name:'IELTS Writing & Essays',img:'assets/cards/ielts-writing-essays.webp',price:'$14.99',slug:'ielts-writing-essays'},
+  {name:'IELTS Slide Decks',img:'assets/cards/ielts-speaking.webp',price:'$12.99',slug:'ielts-slide-decks'},
+  {name:'B1 Grammar Lessons',img:'assets/cards/b1-grammar.webp',price:'$12.99',slug:'b1-grammar-lessons'},
+  {name:'B2 Grammar Lessons',img:'assets/cards/b2-grammar.webp',price:'$12.99',slug:'b2-grammar-lessons'},
+  {name:'Linking Words B1\u2013C2',img:'assets/cards/linking-words.webp',price:'$6.99',slug:'linking-words-collection'},
+  {name:'Speaking: Sliding In',img:'assets/cards/sliding-in.webp',price:'$9.99',slug:'sliding-in'}
 ];
-var $cardRing=document.getElementById('cardRing'),$cardName=document.getElementById('cardName'),$cardInfo=document.getElementById('cardInfo');
+
+var $cardRing=document.getElementById('cardRing');
+
 cardData.forEach(function(card){
-  var el=document.createElement('div');el.className='ring-card';
-  el.innerHTML='<div class="ring-card-inner"><div class="ring-card-front"><img src="'+card.img+'" alt="'+card.name+'" loading="lazy" decoding="async"></div></div><div class="ring-card-reflect" aria-hidden="true"><img src="'+card.img+'" alt="" loading="lazy" decoding="async"></div>';
-  el.addEventListener('mouseenter',function(){$cardName.textContent=card.name;$cardInfo.style.opacity='1';});
-  el.addEventListener('mouseleave',function(){$cardInfo.style.opacity='0';});
-  if(card.url)el.addEventListener('click',function(){window.location.hash=card.url;});
+  var url=GUMROAD_URLS[card.slug]||'';
+  var action=url
+    ?'<a class="card-buy" href="'+url+'" target="_blank" rel="noopener">Buy on Gumroad</a>'
+    :'<span class="card-soon">On Gumroad soon</span>';
+
+  var el=document.createElement('div');
+  el.className='ring-card';
+  el.innerHTML=
+    '<div class="ring-card-inner">'+
+      '<div class="ring-card-front">'+
+        '<img src="'+card.img+'" alt="'+card.name+'" loading="lazy" decoding="async">'+
+      '</div>'+
+      '<div class="card-cap">'+
+        '<div class="card-cap-top">'+
+          '<span class="card-cap-title">'+card.name+'</span>'+
+          '<span class="card-cap-price">'+card.price+'</span>'+
+        '</div>'+
+        action+
+      '</div>'+
+    '</div>'+
+    '<div class="ring-card-reflect" aria-hidden="true">'+
+      '<img src="'+card.img+'" alt="" loading="lazy" decoding="async">'+
+    '</div>';
+
+  if(url)el.addEventListener('click',function(e){
+    if(e.target.closest('a'))return;
+    window.open(url,'_blank','noopener');
+  });
+
   el._spring={tx:0,tz:-400,ry:0,sc:1,op:0,vtx:0,vtz:0,vry:0,vsc:0,vop:0};
   $cardRing.appendChild(el);
 });
 
-/* ═══ MATERIAL DETAIL SECTIONS (built from the same data) ═══ */
-var MAT=[
-  {tag:'B1\u2013C1',title:'IELTS Speaking Mastery',img:'assets/cards/ielts-speaking-portal.webp',price:'$29',body:'The complete IELTS speaking arsenal \u2014 Part 1 interview, Part 2 long turn and Part 3 discussion across every common topic, with vocabulary, model answers and homework.',list:['48 core topic decks','B1, B2 and C1 sets','Model answers + band descriptors','Works offline']},
-  {tag:'B2+',title:'IELTS Writing & Essays',img:'assets/cards/ielts-writing-essays.webp',price:'$14.99',body:'Task 1 and Task 2 writing broken down \u2014 structures, linking language, model essays and the band descriptors examiners actually use.',list:['Task 1 + Task 2','Model essays','Band descriptors','Timed practice']},
-  {tag:'B1',title:'IELTS Slide Decks',img:'assets/cards/ielts-speaking.webp',price:'$12.99',body:'Topic-by-topic speaking decks you can teach from or study alone \u2014 prompts, useful language and a clear structure for every answer.',list:['Topic decks','Speaking prompts','Useful phrases','Printable']},
-  {tag:'B1',title:'B1 Grammar Lessons',img:'assets/cards/b1-grammar.webp',price:'$12.99',body:'Core B1 grammar taught through examples you can actually use, not rules to memorise.',list:['Tenses','Conditionals','Modals','Practice sets']},
-  {tag:'B2',title:'B2 Grammar Lessons',img:'assets/cards/b2-grammar.webp',price:'$12.99',body:'Upper-intermediate grammar for precision \u2014 passive, reported speech, advanced conditionals and hedging.',list:['Passive voice','Reported speech','Advanced conditionals','Hedging language']},
-  {tag:'B1\u2013C2',title:'Linking Words Collection',img:'assets/cards/linking-words.webp',price:'$6.99',body:'Four decks of cohesive devices from B1 to C2. The single fastest upgrade to a learner\u2019s writing and speaking band scores.',list:['B1, B2, C1, C2 sets','Cohesive devices','Exam-ready transitions','Writing + speaking']},
-  {tag:'B1\u2013C1',title:'Speaking: Sliding In',img:'assets/cards/sliding-in.webp',price:'$9.99',body:'Conversation starters and speaking frames that get learners talking within the first minute of a lesson.',list:['Conversation starters','Speaking frames','Pair work','All levels']},
-  {tag:'All',title:'VocabForge',img:'assets/cards/vocab-forge.webp',price:'$7.99',body:'Build and drill vocabulary sets that stick, with spaced repetition and topic packs.',list:['Custom word sets','Spaced repetition','Topic packs','Progress tracking']},
-  {tag:'Tool',title:'Online Whiteboard',img:'assets/cards/whiteboard.webp',price:'Free',body:'A shared whiteboard built for language lessons \u2014 draw, write and annotate together in real time.',list:['Real-time drawing','Text + annotation','No install','Works in browser']},
-  {tag:'Tool',title:'Video Lesson Maker',img:'assets/cards/video-lesson-maker.webp',price:'Free',body:'Turn any video into an interactive lesson \u2014 questions, timestamps and comprehension tasks attached to the timeline.',list:['Add questions','Timestamp tasks','Comprehension','Share a link']},
-  {tag:'Tool',title:'Video Call Classroom',img:'assets/cards/video-call.webp',price:'Free',body:'The classroom itself \u2014 a video call with the lesson materials built in, so nothing gets lost in a second tab.',list:['Built-in materials','Screen share','No extra apps','Free']},
-  {tag:'Tool',title:'Language Tool',img:'assets/cards/language-tool.webp',price:'Free',body:'A quick-reference language widget \u2014 translations and definitions without leaving the page you are reading.',list:['Instant definitions','Translation','Stays on page','Browser widget']}
-];
-var matHost=document.getElementById('materials');
-MAT.forEach(function(m,i){
-  var sec=document.createElement('section');
-  sec.className='detail-room'+(i%2?' rev':'');
-  sec.innerHTML='<div class="detail-inner"><div class="detail-art"><img src="'+m.img+'" alt="'+m.title+'" loading="lazy" decoding="async"></div><div><div class="detail-tag">'+m.tag+'</div><h3 class="detail-title">'+m.title+'</h3><p class="detail-body">'+m.body+'</p><ul class="detail-list">'+m.list.map(function(li){return '<li>'+li+'</li>';}).join('')+'</ul><div class="detail-foot"><span class="detail-price">'+m.price+'</span><a href="#" class="btn-gumroad" data-product="'+m.title.toLowerCase().replace(/[^a-z]+/g,'-')+'">Get on Gumroad</a></div></div></div>';
-  matHost.appendChild(sec);
+/* ═══ BUY BUTTONS beneath the cards ═══ */
+/* Same rule as the cards: paste real Gumroad URLs, or the button honestly
+   relabels itself "On Gumroad soon" instead of pointing at a dead link. */
+var GUMROAD_BUNDLES={
+  'single-deck':'',
+  'level-bundle':'',
+  'full-library':''
+};
+document.querySelectorAll('.buy-btn').forEach(function(btn){
+  var url=GUMROAD_BUNDLES[btn.getAttribute('data-bundle')]||'';
+  if(url){
+    btn.setAttribute('href',url);
+    btn.setAttribute('target','_blank');
+    btn.setAttribute('rel','noopener');
+  }else{
+    btn.setAttribute('aria-disabled','true');
+    btn.classList.add('soon');
+    var lbl=btn.querySelector('.buy-label');
+    if(lbl)lbl.textContent='On Gumroad soon';
+  }
 });
-document.querySelectorAll('.btn-gumroad').forEach(function(btn){
-  btn.addEventListener('click',function(e){
-    if(btn.getAttribute('href')==='#'){
-      e.preventDefault();
-      alert('Gumroad product "'+btn.getAttribute('data-product')+'" is being set up.\n\nAdd your Gumroad URLs in index.html to activate this button.');
-    }
-  });
-});
-
-/* ═══ PHASE DOTS ═══ */
-var dots=document.querySelectorAll('.phase-dots .dot');
-dots.forEach(function(dot){
-  dot.addEventListener('click',function(){
-    var el=document.getElementById(dot.getAttribute('data-room'));
-    if(el)el.scrollIntoView({behavior:'smooth'});
-  });
-});
-
-/* ═══ MOBILE MENU ═══ */
-var menuToggle=document.getElementById('menuToggle'),mobileMenu=document.getElementById('mobileMenu'),menuBackdrop=document.getElementById('menuBackdrop');
-function setMenu(open){
-  mobileMenu.classList.toggle('open',open);menuBackdrop.classList.toggle('open',open);menuToggle.classList.toggle('open',open);
-  menuToggle.setAttribute('aria-expanded',open?'true':'false');
-}
-if(menuToggle){
-  menuToggle.addEventListener('click',function(){setMenu(!mobileMenu.classList.contains('open'));});
-  menuBackdrop.addEventListener('click',function(){setMenu(false);});
-  mobileMenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-}
 
 /* ═══ DNA LOADER ═══ */
 var BASE_COUNT=13,dnaHelix=document.getElementById('dnaHelix'),dnaBases=[],dnaSmooth=null;
@@ -662,52 +491,6 @@ window.addEventListener('orientationchange',function(){setTimeout(checkOrientati
 var loLastW=window.innerWidth;
 window.addEventListener('resize',function(){if(window.innerWidth!==loLastW){loLastW=window.innerWidth;checkOrientation();}});
 document.getElementById('loOkBtn').addEventListener('click',function(){loDismissed=true;landscapeOverlay.style.display='none';});
-
-/* ═══ PLAYGROUND ═══ */
-(function(){
-  var host=document.getElementById('bubbles');
-  if(host){
-    var words=['fluent','hesitate','vivid','concise','nuance','grasp'];
-    function place(el){el.style.left=(4+Math.random()*58)+'%';el.style.top=(6+Math.random()*56)+'%';el.style.animationDuration=(3+Math.random()*2.2).toFixed(2)+'s';el.style.animationDelay=(-Math.random()*2).toFixed(2)+'s';}
-    words.forEach(function(w){
-      var b=document.createElement('button');b.type='button';b.className='bubble';b.textContent=w;place(b);
-      b.addEventListener('click',function(){if(b.classList.contains('pop'))return;b.classList.add('pop');setTimeout(function(){b.classList.remove('pop');place(b);},360);});
-      host.appendChild(b);
-    });
-  }
-  var fh=document.getElementById('flips');
-  if(fh){
-    [['hesitate','to pause before you speak'],['concise','short and clear'],['elaborate','to add more detail'],['vivid','bright and full of life']].forEach(function(p){
-      var d=document.createElement('div');d.className='flip';d.tabIndex=0;d.setAttribute('role','button');d.setAttribute('aria-label',p[0]+' \u2014 tap to reveal meaning');
-      d.innerHTML='<div class="flip-inner"><div class="flip-face flip-front">'+p[0]+'</div><div class="flip-face flip-back">'+p[1]+'</div></div>';
-      function tog(){d.classList.toggle('on');}
-      d.addEventListener('click',tog);
-      d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();}});
-      fh.appendChild(d);
-    });
-  }
-  var bh=document.getElementById('buckets'),chh=document.getElementById('chips'),fb=document.getElementById('pgFeedback');
-  if(bh&&chh){
-    var items=[{t:'I would like to enquire\u2026',c:0},{t:'Hey, quick question\u2026',c:1},{t:'Please find attached\u2026',c:0},{t:'Can you send that over?',c:1},{t:'I am writing to request\u2026',c:0},{t:'Just checking in\u2026',c:1}];
-    var sel=null,done=0;
-    ['Formal','Informal'].forEach(function(n,i){
-      var b=document.createElement('button');b.type='button';b.className='bucket';b.textContent=n;
-      b.addEventListener('click',function(){
-        if(!sel){if(fb)fb.textContent='Pick a phrase first.';return;}
-        var ok=parseInt(sel.getAttribute('data-c'),10)===i;
-        b.classList.add(ok?'good':'bad');setTimeout(function(){b.classList.remove('good','bad');},420);
-        if(ok){sel.remove();sel=null;done++;if(fb)fb.textContent=(done===items.length)?'All sorted \u2014 that is exactly the drill. Nice work.':'Correct! '+done+' of '+items.length+' sorted.';}
-        else{var s=sel;sel=null;s.classList.remove('sel');s.classList.add('shake');setTimeout(function(){s.classList.remove('shake');},420);if(fb)fb.textContent='Not quite \u2014 try the other one.';}
-      });
-      bh.appendChild(b);
-    });
-    items.forEach(function(it){
-      var c=document.createElement('button');c.type='button';c.className='chip';c.textContent=it.t;c.setAttribute('data-c',it.c);
-      c.addEventListener('click',function(){if(sel)sel.classList.remove('sel');sel=c;c.classList.add('sel');if(fb)fb.textContent='Now choose a bucket.';});
-      chh.appendChild(c);
-    });
-  }
-})();
 
 /* ═══ TICK (portfolio loop, 30fps cap) ═══ */
 var prevTime=0,lastFrame=0,MIN_MS=1000/30;
@@ -729,11 +512,6 @@ function tick(now){
   roomData.forEach(function(r){var total=r.height-viewH;r.progress=total<=0?(r.top<=window.scrollY?1:0):clamp01((window.scrollY-r.top)/total);});
   var rp=roomData.map(function(r){return r.progress;});
   var mobilePortrait=viewW<=768&&viewH>viewW;
-
-  var best=-1;
-  roomData.forEach(function(r,i){if((r.progress>0&&r.progress<1)||(i===0&&r.progress===0)){var v=r.progress<.5?r.progress:1-r.progress;if(v<.15&&(best===-1||i>best))best=i;}});
-  if(best===-1)for(var i2=0;i2<roomData.length;i2++)if(roomData[i2].progress>=1)best=i2;
-  dots.forEach(function(d,i){d.classList.toggle('active',i===best);});
 
   var helixP=rp[0],loader=document.getElementById('loader');
   var strandSpan=1/BASE_COUNT,LERP_SPEED=.08;
@@ -767,25 +545,18 @@ function tick(now){
     sloganText.style.opacity=Math.max(0,Math.min(1,(rp[3]-.2)/.3));
   }else titleStage.style.opacity='0';
 
-  var shrinkP=rp[4],heroEl=nameStage,titleEl=titleStage,navBar=document.getElementById('topNav');
-  if(shrinkP>.01){
-    var shrink=lerp(1,.15,smoothstep(shrinkP)),topY=lerp(50,.3,shrinkP),leftX=lerp(50,1.5,shrinkP);
-    heroEl.style.position='fixed';heroEl.style.top=topY+'vh';heroEl.style.left=leftX+'vw';
-    heroEl.style.transform='translate(0,0) scale('+shrink+')';heroEl.style.transformOrigin='top left';
-    heroEl.style.zIndex='46';heroEl.style.opacity=Math.min(1,shrinkP*4).toFixed(3);
-    titleEl.style.position='fixed';titleEl.style.top=(topY+2.5)+'vh';titleEl.style.left=leftX+'vw';
-    titleEl.style.transform='translate(0,0) scale('+(shrink*.7)+')';titleEl.style.transformOrigin='top left';
-    titleEl.style.zIndex='46';titleEl.style.opacity=shrinkP>.25?'1':'0';
-    navBar.classList.toggle('visible',shrinkP>.75);
-  }else{
-    ['position','top','left','transform','transformOrigin','zIndex'].forEach(function(p){heroEl.style[p]='';titleEl.style[p]='';});
-    navBar.classList.remove('visible');
+  /* r5 — hand off to the gallery: fade the wordmark out, no corner text */
+  var shrinkP=rp[4];
+  if(shrinkP>0){
+    var fadeOut=1-smoothstep(clamp01(shrinkP*1.6));
+    nameStage.style.opacity=fadeOut.toFixed(3);
+    titleStage.style.opacity=fadeOut.toFixed(3);
   }
 
-  var galP=rp[5],gallery=document.getElementById('galleryRoom'),floor=document.getElementById('galleryFloor'),sectBtns=document.getElementById('sectionButtons'),varprox=document.getElementById('varprox');
+  var galP=rp[5],gallery=document.getElementById('galleryRoom'),floor=document.getElementById('galleryFloor');
   if(galP>0){
     gallery.style.opacity='1';gallery.style.visibility='visible';
-    floor.classList.add('visible');varprox.classList.add('visible');
+    floor.classList.add('visible');
     var ringCards=document.querySelectorAll('.ring-card'),total=ringCards.length;
     var sp3=galP*(total-1),activeIdx=Math.max(0,Math.min(total-1,Math.round(sp3)));
     var STIFF=.08,DAMP=.72;
@@ -807,13 +578,12 @@ function tick(now){
         card.style.opacity=Math.max(0,Math.min(1,s.op)).toFixed(3);
         card.style.zIndex=dist===0?'100':Math.abs(dist)===1?'50':'30';
         card.style.pointerEvents=s.op>.3?'auto':'none';
+        card.classList.toggle('is-active',i===activeIdx);
       });
     }
-    navBar.classList.add('visible');
-    sectBtns.classList.toggle('visible',galP>(mobilePortrait?0.6:0));
   }else{
     gallery.style.opacity='0';gallery.style.visibility='hidden';
-    floor.classList.remove('visible');sectBtns.classList.remove('visible');varprox.classList.remove('visible');
+    floor.classList.remove('visible');
   }
 
   updateAllVP();
