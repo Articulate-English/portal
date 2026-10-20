@@ -61,8 +61,11 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 /* ── NAV (no backdrop-filter) ── */
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:70;opacity:0;pointer-events:none;transition:opacity .5s;background:rgba(5,6,15,.92);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.6rem}
 .top-nav.visible{opacity:1;pointer-events:auto}
-.nav-brand{font-family:'Oswald',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
-.nav-brand .dot{color:var(--accent2)}
+.top-nav{padding-right:5rem}
+@media(max-width:768px){
+  .nav-links a:not(.nav-cta){display:none}
+  .top-nav{padding-right:4.8rem}
+}
 .nav-links{display:flex;gap:1.4rem;align-items:center}
 .nav-links a{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:color .3s}
 .nav-links a:hover{color:var(--glow)}
@@ -158,6 +161,95 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
   .card-ring{width:max-content;min-width:100%;height:100%;flex-direction:row;align-items:center;justify-content:flex-start;gap:16px;transform-style:flat;padding:0 10vw}
   .ring-card{position:relative;left:auto;top:auto;width:74vw;height:52vw;max-width:340px;max-height:250px;margin:0;flex:0 0 auto;scroll-snap-align:center;scroll-snap-stop:always;pointer-events:auto!important}
 }
+/* ══ LOGO ══ */
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:0 0 auto}
+.nav-logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1);transition:filter .4s}
+html[data-theme="light"] .nav-logo img{filter:none}
+.nav-logo-text{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:var(--ink)}
+
+/* ══ THEME TOGGLE (always visible) ══ */
+.theme-toggle{position:fixed;top:1rem;right:1rem;z-index:90;width:56px;height:30px;border-radius:999px;border:1px solid var(--border);background:rgba(5,6,15,.85);cursor:pointer;padding:0;transition:background .35s,border-color .35s}
+.theme-toggle .knob{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent3));display:flex;align-items:center;justify-content:center;transition:transform .38s cubic-bezier(.4,0,.2,1)}
+html[data-theme="light"] .theme-toggle .knob{transform:translateX(26px)}
+.theme-toggle .ico{position:absolute;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--dim);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+.theme-toggle .ico-sun{left:7px}
+.theme-toggle .ico-moon{right:7px}
+html[data-theme="light"] .theme-toggle{background:rgba(255,255,255,.9)}
+html[data-theme="light"] .theme-toggle .ico{stroke:#6d28d9}
+.theme-toggle:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+
+/* ══ LIGHT THEME ══ */
+html[data-theme="light"]{
+  --bg:#f5f3ff;--ink:#171129;--dim:rgba(23,17,41,.68);
+  --accent:#7c3aed;--accent2:#0e7490;--accent3:#4f46e5;--glow:#5b21b6;
+  --border:rgba(76,29,149,.2);
+}
+html[data-theme="light"] body{background:var(--bg);color:var(--ink)}
+html[data-theme="light"] .bg{opacity:.30}
+html[data-theme="light"] .bg-detail{opacity:.18}
+html[data-theme="light"] .scrim{background:linear-gradient(to bottom,rgba(245,243,255,.74) 0%,rgba(245,243,255,.84) 45%,rgba(245,243,255,.97) 100%)}
+html[data-theme="light"] .top-nav{background:rgba(245,243,255,.95)}
+html[data-theme="light"] .ring-card-inner{background:linear-gradient(150deg,rgba(255,255,255,.98),rgba(243,240,255,1));box-shadow:0 20px 50px rgba(76,29,149,.16)}
+html[data-theme="light"] .ring-card-title{color:var(--ink);text-shadow:none}
+html[data-theme="light"] .ring-badge{background:rgba(255,255,255,.9);color:var(--glow)}
+html[data-theme="light"] .ring-card-pill{background:rgba(255,255,255,.95);color:var(--ink)}
+html[data-theme="light"] .detail-room,html[data-theme="light"] .pricing-room,
+html[data-theme="light"] .marquee-room,html[data-theme="light"] .playground,
+html[data-theme="light"] .site-footer{background:rgba(245,243,255,.82)}
+html[data-theme="light"] .tier{background:rgba(255,255,255,.94)}
+html[data-theme="light"] .toy{background:rgba(255,255,255,.94)}
+html[data-theme="light"] .marquee-track span{color:rgba(23,17,41,.18)}
+html[data-theme="light"] .marquee-track span:nth-child(even){-webkit-text-stroke-color:rgba(91,33,182,.42)}
+html[data-theme="light"] .collected{background:rgba(255,255,255,.92)}
+html[data-theme="light"] .disc-ring::after{background:rgba(245,243,255,.96)}
+html[data-theme="light"] .detail-art{filter:saturate(1.05) brightness(1.12)}
+html[data-theme="light"] .tagline{text-shadow:none;color:var(--ink)}
+html[data-theme="light"] .ascent-map h2{text-shadow:none}
+html[data-theme="light"] .bubble{background:rgba(124,58,237,.14);color:var(--ink)}
+html[data-theme="light"] .flip-front{background:rgba(124,58,237,.16);color:var(--ink)}
+html[data-theme="light"] .flip-back{background:rgba(14,116,144,.16);color:var(--ink)}
+html[data-theme="light"] .chip{background:rgba(255,255,255,.8);color:var(--ink)}
+html[data-theme="light"] .theme-toggle{box-shadow:0 4px 18px rgba(76,29,149,.16)}
+
+/* ══ PLAYGROUND ══ */
+.playground{position:relative;z-index:20;background:rgba(5,6,15,.62);border-top:1px solid var(--border);padding:6rem 0;contain:layout paint style}
+.pg-head{text-align:center;max-width:760px;margin:0 auto 3rem;padding:0 2rem}
+.pg-head h2{font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem}
+.pg-head p{color:var(--dim)}
+.pg-grid{max-width:1080px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+.toy{background:rgba(12,14,32,.85);border:1px solid var(--border);border-radius:18px;padding:1.6rem;position:relative;overflow:hidden}
+.toy h3{font-family:'Oswald',sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.toy>p{color:var(--dim);font-size:.9rem;margin-bottom:1rem}
+.toy-wide{grid-column:1/-1}
+
+.bubbles{position:relative;height:200px;contain:layout paint}
+.bubble{position:absolute;padding:.5em 1.05em;border-radius:999px;border:1px solid var(--border);background:rgba(139,92,246,.18);color:var(--ink);font-weight:600;font-size:.9rem;cursor:pointer;animation:floaty 4s ease-in-out infinite alternate;will-change:transform;user-select:none;transition:transform .3s cubic-bezier(.2,1.4,.4,1),opacity .3s}
+@keyframes floaty{from{transform:translateY(0)}to{transform:translateY(-15px)}}
+.bubble.pop{animation:none;transform:scale(1.7);opacity:0}
+
+.flips{display:flex;gap:.9rem;flex-wrap:wrap}
+.flip{width:118px;height:152px;perspective:800px;cursor:pointer;outline:none}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1)}
+.flip.on .flip-inner{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:.7rem;text-align:center;font-weight:600;font-size:.88rem;border:1px solid var(--border);line-height:1.3}
+.flip-front{background:rgba(139,92,246,.18);color:var(--ink)}
+.flip-back{background:rgba(34,211,238,.18);color:var(--ink);transform:rotateY(180deg);font-weight:500;font-size:.8rem}
+.flip:focus-visible .flip-face{outline:2px solid var(--accent2);outline-offset:2px}
+
+.sort-buckets{display:flex;gap:1rem;margin-bottom:1.2rem}
+.bucket{flex:1;border:1px dashed var(--border);border-radius:12px;padding:.8rem;text-align:center;font-family:'Oswald',sans-serif;font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;color:var(--glow);background:transparent;cursor:pointer;min-height:58px;transition:background .25s,border-color .25s}
+.bucket.over,.bucket:hover{background:rgba(139,92,246,.16);border-color:var(--accent)}
+.bucket.good{background:rgba(74,222,128,.22);border-color:#4ade80}
+.bucket.bad{background:rgba(244,63,94,.22);border-color:#f43f5e}
+.sort-chips{display:flex;gap:.55rem;flex-wrap:wrap}
+.chip{padding:.5em 1.05em;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--ink);font-size:.85rem;font-weight:600;cursor:pointer;transition:transform .2s,background .2s}
+.chip:hover{transform:translateY(-2px)}
+.chip.sel{background:linear-gradient(135deg,var(--accent),var(--accent3));border-color:transparent;transform:scale(1.06)}
+.chip.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.pg-feedback{margin-top:1rem;font-size:.9rem;color:var(--glow);min-height:1.4em;font-weight:600}
+
+@media(max-width:768px){.pg-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -208,6 +300,32 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 
 <div id="details"></div>
 
+<section class="playground" id="playground">
+  <div class="pg-head">
+    <h2>Try a taste of class</h2>
+    <p>Lessons are hands-on. Pop a word, flip a card, sort a phrase — this is the feel of a session.</p>
+  </div>
+  <div class="pg-grid">
+    <div class="toy">
+      <h3>Pop the words</h3>
+      <p>Tap a bubble. Vocabulary sticks when it is fun.</p>
+      <div class="bubbles" id="bubbles"></div>
+    </div>
+    <div class="toy">
+      <h3>Flip the card</h3>
+      <p>Tap to reveal the meaning — the classic vocab drill.</p>
+      <div class="flips" id="flips"></div>
+    </div>
+    <div class="toy toy-wide">
+      <h3>Sort the phrase</h3>
+      <p>Pick a phrase, then choose where it belongs. Real exam skill, playful practice.</p>
+      <div class="sort-buckets" id="buckets"></div>
+      <div class="sort-chips" id="chips"></div>
+      <div class="pg-feedback" id="pgFeedback" aria-live="polite">Pick a phrase to begin.</div>
+    </div>
+  </div>
+</section>
+
 <section class="pricing-room" id="pricing">
   <div class="pricing-head">
     <h2>Choose your climb</h2>
@@ -240,9 +358,16 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
   <p style="margin-top:.6rem"><a href="mailto:hello@articulate-english.com">hello@articulate-english.com</a></p>
 </footer>
 
+<button class="theme-toggle" id="themeToggle" aria-label="Switch colour theme" aria-pressed="false" title="Switch colour theme">
+  <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <span class="knob"></span>
+</button>
+
 <nav class="top-nav" id="topNav">
-  <span class="nav-brand">Articulate<span class="dot">.</span></span>
+  <a href="#r1" class="nav-logo"><img src="assets/logo-nav.png" alt="Articulate English" width="256" height="252"><span class="nav-logo-text">Articulate</span></a>
   <span class="nav-links">
+    <a href="#playground">Playground</a>
     <a href="#r6">Collections</a>
     <a href="#pricing">Pricing</a>
     <a href="#pricing" class="nav-cta">Get the library</a>
@@ -638,6 +763,92 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     lenis.scrollTo(window.scrollY,{immediate:true});lenis.scrollTo(el.offsetTop,{duration:1.1});
   });
 });
+
+/* ══════════ THEME TOGGLE ══════════ */
+var themeBtn=document.getElementById('themeToggle');
+var rootEl=document.documentElement;
+function applyTheme(t){rootEl.setAttribute('data-theme',t);if(themeBtn)themeBtn.setAttribute('aria-pressed',t==='light'?'true':'false');}
+var stored=null;try{stored=localStorage.getItem('articulate-theme');}catch(e){}
+if(stored==='light'||stored==='dark')applyTheme(stored);
+else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)applyTheme('light');
+else applyTheme('dark');
+if(themeBtn){themeBtn.addEventListener('click',function(){
+  var next=rootEl.getAttribute('data-theme')==='light'?'dark':'light';
+  applyTheme(next);try{localStorage.setItem('articulate-theme',next);}catch(e){}
+});}
+
+/* ══════════ PLAYGROUND (CSS-driven; no extra rAF) ══════════ */
+(function(){
+  var host=document.getElementById('bubbles');
+  if(host){
+    var words=['fluent','hesitate','vivid','concise','nuance','grasp'];
+    function place(el){
+      el.style.left=(4+Math.random()*58)+'%';
+      el.style.top=(6+Math.random()*56)+'%';
+      el.style.animationDuration=(3+Math.random()*2.2).toFixed(2)+'s';
+      el.style.animationDelay=(-Math.random()*2).toFixed(2)+'s';
+    }
+    words.forEach(function(w){
+      var b=document.createElement('button');
+      b.type='button';b.className='bubble';b.textContent=w;place(b);
+      b.addEventListener('click',function(){
+        if(b.classList.contains('pop'))return;
+        b.classList.add('pop');
+        setTimeout(function(){b.classList.remove('pop');place(b);},360);
+      });
+      host.appendChild(b);
+    });
+  }
+  var fh=document.getElementById('flips');
+  if(fh){
+    var pairs=[['hesitate','to pause before you speak'],['concise','short and clear'],['elaborate','to add more detail'],['vivid','bright and full of life']];
+    pairs.forEach(function(p){
+      var d=document.createElement('div');
+      d.className='flip';d.tabIndex=0;d.setAttribute('role','button');
+      d.setAttribute('aria-label',p[0]+' \u2014 tap to reveal meaning');
+      d.innerHTML='<div class="flip-inner"><div class="flip-face flip-front">'+p[0]+'</div><div class="flip-face flip-back">'+p[1]+'</div></div>';
+      function tog(){d.classList.toggle('on');}
+      d.addEventListener('click',tog);
+      d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();}});
+      fh.appendChild(d);
+    });
+  }
+  var bh=document.getElementById('buckets'),chh=document.getElementById('chips'),fb=document.getElementById('pgFeedback');
+  if(bh&&chh){
+    var names=['Formal','Informal'];
+    var items=[{t:'I would like to enquire\u2026',c:0},{t:'Hey, quick question\u2026',c:1},{t:'Please find attached\u2026',c:0},{t:'Can you send that over?',c:1},{t:'I am writing to request\u2026',c:0},{t:'Just checking in\u2026',c:1}];
+    var sel=null,done=0;
+    names.forEach(function(n,i){
+      var b=document.createElement('button');
+      b.type='button';b.className='bucket';b.textContent=n;
+      b.addEventListener('click',function(){
+        if(!sel){if(fb)fb.textContent='Pick a phrase first.';return;}
+        var ok=parseInt(sel.getAttribute('data-c'),10)===i;
+        b.classList.add(ok?'good':'bad');
+        setTimeout(function(){b.classList.remove('good','bad');},420);
+        if(ok){
+          sel.remove();sel=null;done++;
+          if(fb)fb.textContent=(done===items.length)?'All sorted \u2014 that is exactly the drill. Nice work.':'Correct! '+done+' of '+items.length+' sorted.';
+        }else{
+          var s=sel;sel=null;s.classList.remove('sel');s.classList.add('shake');
+          setTimeout(function(){s.classList.remove('shake');},420);
+          if(fb)fb.textContent='Not quite \u2014 try the other one.';
+        }
+      });
+      bh.appendChild(b);
+    });
+    items.forEach(function(it){
+      var c=document.createElement('button');
+      c.type='button';c.className='chip';c.textContent=it.t;c.setAttribute('data-c',it.c);
+      c.addEventListener('click',function(){
+        if(sel)sel.classList.remove('sel');
+        sel=c;c.classList.add('sel');
+        if(fb)fb.textContent='Now choose a bucket.';
+      });
+      chh.appendChild(c);
+    });
+  }
+})();
 
 /* ══════════ RESIZE ══════════ */
 var rzTimer=null;
