@@ -1,62 +1,53 @@
 # Articulate English — The Ascent
 
-A gamified, scroll-driven journey through Articulate English's ESL learning materials. Single-file static site (Lenis + GSAP ScrollTrigger), no build step.
+Marketing and storefront site for Articulate English. Built on the same
+architecture as the portfolio site (`WGT-Edutech/Portfolio`), with ESL content
+and the real learning-material screenshots.
 
 Live: https://articulate-english.github.io/portal/
 
-## What's inside
+## Architecture (mirrors the portfolio)
 
-**Intro (r1–r5)**
-- Cosmic nebula backdrop (WebP, layered with a dark scrim for text contrast)
-- 3D double-helix light spiral — canvas 2D perspective projection, additive glow, drifting toward the viewer
-- Particle-text hero title ("ARTICULATE") — React Bits ParticleText, ported to vanilla
-- Slow even slide-up into "The Ascent" map
-- Rare shooting stars (one every 4–8s, reduced-motion safe)
-- Self-scrolling intro (14s), releases control on any user input
+Six scroll rooms, driven by one hand-rolled `requestAnimationFrame` loop capped at 30fps:
 
-**The Ascent (r6)**
-- Continuous cover-flow ring of 10 product families (no discrete stepping)
-- Discovery meter (fixed, left) + checkpoint dots (fixed, right)
-- "Collected N / 10" counter
+| Room | Height | Content |
+|---|---|---|
+| r1 | 700vh | DNA-helix loader — 13 bars rotating in 3D, "keep scrolling down" |
+| r2 | 900vh | Three.js particle ring — 200 cyan + 250 violet points, cursor-repel, swells near the pointer |
+| r3 | 800vh | Name reveal — "ARTICULATE ENGLISH", character by character |
+| r4 | 400vh | Role + slogan — "English Lessons" / "Learn English the way it's actually spoken." |
+| r5 | 120vh | Shrink-to-nav transition |
+| r6 | 1400vh | Cover-flow gallery — 12 material cards with mirrored reflections |
 
-**Below the fold**
-- Scroll-velocity topic marquee
-- 10 alternating product detail sections
-- Pricing tiers + Gumroad CTAs
-- Footer
+Plus: phase dots, variable-proximity text (Roboto Flex `wght`/`opsz` follows the cursor),
+mobile menu, landscape prompt, autoplay-after-4s-idle.
 
-## The 10 collections
+Below the scroll experience: **Playground** (3 interactive toys), **Materials**
+(12 product detail sections), **Pricing** (3 tiers), footer.
 
-| Collection | CEFR | Units | Price |
-|---|---|---|---|
-| IELTS Speaking Mastery | B1–C1 | 80+ decks | $29 |
-| B1 Speaking Library | B1 | 17 decks | $12.99 |
-| B2 Advanced Speaking | B2 | 8 decks | $12.99 |
-| Grammar Vault | A2–C1 | 10+ decks | $12.99 |
-| Linking Words Collection | B1–C2 | 4 decks | $6.99 |
-| Business English Suite | B1–C1 | 13+ decks | $14.99 |
-| Accent Reduction Lab | All | 5 guides | $9.99 |
-| Exam Simulators | B2+ | 6 units | $14.99 |
-| Young Learners | A1–A2 | 2 sets | $7.99 |
-| Travel & Languages | A2–B1 | 8+ decks | $9.99 |
+## Differences from the portfolio
+
+- ESL text throughout, and 12 real learning-material screenshots
+- **Logo** — the inline SVG "A" monogram from `articulate-english/b2-fce-speaking`
+  (cyan `#22d3ee` circle, white A, adaptive outline). Same mark as the favicon.
+- **Colour theme toggle** — sun/moon switch, persists to `localStorage`, respects
+  `prefers-color-scheme`. Full light theme.
+- **Playground** — pop-the-words bubbles, flip cards, sort-the-phrase
+- **Commerce** — Gumroad CTAs on every material and pricing tier
+
+## Assets
+
+- `assets/cards/*.webp` — 12 screenshots, compressed from the portfolio originals
+  (6.1 MB → 166 KB), lazy-loaded
+- `assets/favicon.svg` — the mark
+
+Three.js is loaded from `cdn.jsdelivr.net` (as the portfolio does).
 
 ## Gumroad setup
 
-1. Create products on [Gumroad](https://gumroad.com) for each collection (and/or the three tiers).
-2. In `index.html`, replace every `href="#"` on a `.btn-gumroad` with the real product URL.
-3. Format: `https://<username>.gumroad.com/l/<product-id>`
-4. Until then, buttons show a "being set up" notice.
-
-## Structure
-
-```
-index.html                      single-file site
-assets/nebula-planet-bg.webp    cosmic backdrop (1920w)
-assets/nebula-planet-bg-1280.webp  mobile variant
-js/gsap.min.js                  vendored
-js/ScrollTrigger.min.js         vendored
-js/lenis.min.js                 vendored
-```
+1. Create products on Gumroad.
+2. Replace every `href="#"` on a `.btn-gumroad` with the real product URL.
+3. Until then, buttons show a "being set up" notice.
 
 ## Local preview
 
@@ -65,19 +56,13 @@ python -m http.server 8123 --bind 127.0.0.1
 # open http://127.0.0.1:8123/
 ```
 
-## Deploy
-
-Push to `main`. GitHub Pages serves from root.
-
-```bash
-git add index.html assets/ js/
-git commit -m "Update site"
-git push origin main
-```
-
 ## Verification notes
 
 - `node --check` on the inline script passes; zero console errors on load.
-- Motion (spiral animation, scroll choreography, Lenis smoothing) requires a real
-  browser — headless Chrome reports `document.visibilityState = "hidden"`, which
-  stops `requestAnimationFrame`, so animation cannot be verified headlessly.
+- Motion, frame rate and Lighthouse scores require a real browser — headless Chrome
+  reports `document.visibilityState === 'hidden'`, which stops `requestAnimationFrame`.
+- One improvement over the portfolio: `updateAllVP()` now re-measures only when the
+  pointer actually moved (the original called `getBoundingClientRect()` on every
+  character every frame).
+- `assets/nebula-*.webp` are currently **unreferenced** — kept because the nebula
+  background was requested earlier. Say the word and it goes back in behind the particles.
