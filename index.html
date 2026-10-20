@@ -42,7 +42,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 .particle-text__sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ── TAGLINE ── */
-.tagline{position:fixed;left:50%;top:63%;transform:translate(-50%,-50%);z-index:6;opacity:0;pointer-events:none;font-family:'Inter',sans-serif;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.7rem);letter-spacing:.02em;text-align:center;color:rgba(242,240,255,.94);max-width:min(84vw,760px);text-shadow:0 2px 18px rgba(0,0,0,.65)}
+.tagline{position:fixed;left:50%;top:63%;transform:translate(-50%,-50%);z-index:6;opacity:0;pointer-events:none;font-family:'Inter',sans-serif;font-weight:500;font-size:clamp(1.1rem,2.4vw,1.7rem);letter-spacing:.02em;text-align:center;color:rgba(242,240,255,.94);max-width:min(84vw,760px)}
 .tagline .hl{color:var(--glow)}
 
 /* ── DISCOVERY METER ── */
@@ -80,7 +80,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 
 /* ── ASCENT MAP ── */
 .ascent-map{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;opacity:0;visibility:hidden;padding:0 1.4rem}
-.ascent-map h2{font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);text-transform:uppercase;letter-spacing:.06em;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.ascent-map h2{font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.8rem);text-transform:uppercase;letter-spacing:.06em;text-align:center}
 .ascent-map p{color:var(--dim);max-width:640px;text-align:center;font-size:1.02rem}
 .ladder{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
 .ladder span{font-family:'Oswald',sans-serif;font-size:.95rem;letter-spacing:.1em;padding:.4em 1em;border-radius:999px;border:1px solid var(--border);background:rgba(139,92,246,.1);color:var(--glow)}
@@ -95,7 +95,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 .ring-card-glyph{position:absolute;top:1.1rem;right:1.3rem;font-size:2.6rem;z-index:2}
 .ring-card-body{position:relative;z-index:2}
 .ring-badge{display:inline-block;font-family:'Oswald',sans-serif;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;padding:.3em .8em;border-radius:999px;background:rgba(5,6,15,.6);border:1px solid var(--border);color:var(--glow);margin-bottom:.6rem}
-.ring-card-title{font-family:'Oswald',sans-serif;font-size:1.55rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.15;color:var(--ink);text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.ring-card-title{font-family:'Oswald',sans-serif;font-size:1.55rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.15;color:var(--ink)}
 .ring-card-meta{font-size:.85rem;color:var(--dim);margin-top:.35rem}
 .ring-card.focused .ring-card-inner{box-shadow:0 0 8px rgba(34,211,238,.55),0 28px 80px rgba(0,0,0,.7)}
 .ring-card-pill{position:absolute;top:-1.9rem;left:50%;transform:translateX(-50%);z-index:5;white-space:nowrap;font-family:'Oswald',sans-serif;font-size:1.1rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink);background:rgba(5,6,15,.9);border:1px solid var(--border);border-radius:999px;padding:.4em 1.2em;opacity:0;transition:opacity .35s;pointer-events:none}
@@ -106,7 +106,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
 .marquee-room{position:relative;z-index:20;overflow:hidden;padding:3.4rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(5,6,15,.7);contain:layout paint}
 .marquee-track{display:flex;gap:3rem;white-space:nowrap;will-change:transform}
 .marquee-track span{font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);text-transform:uppercase;letter-spacing:.05em;color:rgba(242,240,255,.22)}
-.marquee-track span:nth-child(even){color:transparent;-webkit-text-stroke:1px rgba(196,181,253,.45)}
+.marquee-track span:nth-child(even){color:rgba(242,240,255,.10)}
 
 /* ── PRODUCT DETAILS ── */
 .detail-room{position:relative;z-index:20;background:rgba(5,6,15,.62);border-top:1px solid var(--border);padding:6rem 0;contain:layout paint style}
@@ -162,9 +162,11 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-se
   .ring-card{position:relative;left:auto;top:auto;width:74vw;height:52vw;max-width:340px;max-height:250px;margin:0;flex:0 0 auto;scroll-snap-align:center;scroll-snap-stop:always;pointer-events:auto!important}
 }
 /* ══ LOGO ══ */
-.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex:0 0 auto}
-.nav-logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1);transition:filter .4s}
-html[data-theme="light"] .nav-logo img{filter:none}
+.nav-logo{display:flex;align-items:center;gap:.65rem;text-decoration:none;flex:0 0 auto}
+/* the mark is black — present it on a light plate rather than recolouring it */
+.nav-logo-mark{display:flex;align-items:center;justify-content:center;padding:4px 7px;border-radius:9px;background:rgba(255,255,255,.95)}
+.nav-logo img{height:24px;width:auto;display:block}
+html[data-theme="light"] .nav-logo-mark{background:transparent;padding:0}
 .nav-logo-text{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:var(--ink)}
 
 /* ══ THEME TOGGLE (always visible) ══ */
@@ -190,7 +192,7 @@ html[data-theme="light"] .bg-detail{opacity:.18}
 html[data-theme="light"] .scrim{background:linear-gradient(to bottom,rgba(245,243,255,.74) 0%,rgba(245,243,255,.84) 45%,rgba(245,243,255,.97) 100%)}
 html[data-theme="light"] .top-nav{background:rgba(245,243,255,.95)}
 html[data-theme="light"] .ring-card-inner{background:linear-gradient(150deg,rgba(255,255,255,.98),rgba(243,240,255,1));box-shadow:0 20px 50px rgba(76,29,149,.16)}
-html[data-theme="light"] .ring-card-title{color:var(--ink);text-shadow:none}
+html[data-theme="light"] .ring-card-title{color:var(--ink)}
 html[data-theme="light"] .ring-badge{background:rgba(255,255,255,.9);color:var(--glow)}
 html[data-theme="light"] .ring-card-pill{background:rgba(255,255,255,.95);color:var(--ink)}
 html[data-theme="light"] .detail-room,html[data-theme="light"] .pricing-room,
@@ -199,12 +201,11 @@ html[data-theme="light"] .site-footer{background:rgba(245,243,255,.82)}
 html[data-theme="light"] .tier{background:rgba(255,255,255,.94)}
 html[data-theme="light"] .toy{background:rgba(255,255,255,.94)}
 html[data-theme="light"] .marquee-track span{color:rgba(23,17,41,.18)}
-html[data-theme="light"] .marquee-track span:nth-child(even){-webkit-text-stroke-color:rgba(91,33,182,.42)}
+html[data-theme="light"] .marquee-track span:nth-child(even){color:rgba(23,17,41,.08)}
 html[data-theme="light"] .collected{background:rgba(255,255,255,.92)}
 html[data-theme="light"] .disc-ring::after{background:rgba(245,243,255,.96)}
-html[data-theme="light"] .detail-art{filter:saturate(1.05) brightness(1.12)}
-html[data-theme="light"] .tagline{text-shadow:none;color:var(--ink)}
-html[data-theme="light"] .ascent-map h2{text-shadow:none}
+html[data-theme="light"] .detail-art{background-color:#efecff}
+html[data-theme="light"] .tagline{color:var(--ink)}
 html[data-theme="light"] .bubble{background:rgba(124,58,237,.14);color:var(--ink)}
 html[data-theme="light"] .flip-front{background:rgba(124,58,237,.16);color:var(--ink)}
 html[data-theme="light"] .flip-back{background:rgba(14,116,144,.16);color:var(--ink)}
@@ -365,7 +366,7 @@ html[data-theme="light"] .theme-toggle{box-shadow:0 4px 18px rgba(76,29,149,.16)
 </button>
 
 <nav class="top-nav" id="topNav">
-  <a href="#r1" class="nav-logo"><img src="assets/logo-nav.png" alt="Articulate English" width="256" height="252"><span class="nav-logo-text">Articulate</span></a>
+  <a href="#r1" class="nav-logo"><span class="nav-logo-mark"><img src="assets/logo-nav.png" alt="Articulate English" width="256" height="252"></span><span class="nav-logo-text">Articulate</span></a>
   <span class="nav-links">
     <a href="#playground">Playground</a>
     <a href="#r6">Collections</a>
