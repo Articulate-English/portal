@@ -1,53 +1,64 @@
 # Articulate English — The Ascent
 
-Marketing and storefront site for Articulate English. Built on the same
-architecture as the portfolio site (`WGT-Edutech/Portfolio`), with ESL content
-and the real learning-material screenshots.
-
+Storefront for Articulate English's slide-deck library.
 Live: https://articulate-english.github.io/portal/
 
-## Architecture (mirrors the portfolio)
+## What the page is
 
-Six scroll rooms, driven by one hand-rolled `requestAnimationFrame` loop capped at 30fps:
+Intro scroll, then a cover-flow gallery of the products for sale, then three buy
+buttons. Nothing after that.
 
 | Room | Height | Content |
 |---|---|---|
 | r1 | 700vh | DNA-helix loader — 13 bars rotating in 3D, "keep scrolling down" |
-| r2 | 900vh | Three.js particle ring — 200 cyan + 250 violet points, cursor-repel, swells near the pointer |
+| r2 | 900vh | Three.js particle ring — 200 cyan + 250 violet points, cursor-repel |
 | r3 | 800vh | Name reveal — "ARTICULATE ENGLISH", character by character |
 | r4 | 400vh | Role + slogan — "English Lessons" / "Learn English the way it's actually spoken." |
-| r5 | 120vh | Shrink-to-nav transition |
-| r6 | 1400vh | Cover-flow gallery — 12 material cards with mirrored reflections |
+| r5 | 120vh | Fade the wordmark out, hand off to the gallery |
+| r6 | 1400vh | Cover-flow gallery — 7 product cards with mirrored reflections |
 
-Plus: phase dots, variable-proximity text (Roboto Flex `wght`/`opsz` follows the cursor),
-mobile menu, landscape prompt, autoplay-after-4s-idle.
+After r6: `.card-actions` — three buy buttons (deck / level / library).
 
-Below the scroll experience: **Playground** (3 interactive toys), **Materials**
-(12 product detail sections), **Pricing** (3 tiers), footer.
+One hand-rolled `requestAnimationFrame` loop capped at 30fps drives all of it.
+Variable-proximity text (Roboto Flex `wght`/`opsz` follows the cursor), landscape
+prompt, autoplay-after-4s-idle.
 
-## Differences from the portfolio
+## Products shown
 
-- ESL text throughout, and 12 real learning-material screenshots
-- **Logo** — the inline SVG "A" monogram from `articulate-english/b2-fce-speaking`
-  (cyan `#22d3ee` circle, white A, adaptive outline). Same mark as the favicon.
-- **Colour theme toggle** — sun/moon switch, persists to `localStorage`, respects
-  `prefers-color-scheme`. Full light theme.
-- **Playground** — pop-the-words bubbles, flip cards, sort-the-phrase
-- **Commerce** — Gumroad CTAs on every material and pricing tier
+Seven sale items — decks and lesson content only. Apps, tools and free products are
+deliberately **not** listed here.
+
+| Card | Price | Product |
+|---|---|---|
+| IELTS Speaking Mastery | $29 | portal of 12 topic decks (deck-1…deck-12) |
+| IELTS Writing & Essays | $14.99 | structured slide deck |
+| IELTS Slide Decks | $12.99 | topic-by-topic speaking decks |
+| B1 Grammar Lessons | $12.99 | 12 lesson pages |
+| B2 Grammar Lessons | $12.99 | 10 lesson pages |
+| Linking Words B1–C2 | $6.99 | four decks of cohesive devices |
+| Speaking: Sliding In | $9.99 | question-card deck |
+
+Each card carries its title, price and buy link. The caption is only drawn on the
+focused card, so the cover-flow never stacks text on text.
+
+## Commerce
+
+Two URL maps at the top of the inline script:
+
+- `GUMROAD_URLS` — per product, keyed by slug
+- `GUMROAD_BUNDLES` — per buy button, keyed by `data-bundle`
+
+Paste real Gumroad URLs (`https://<you>.gumroad.com/l/<id>`). **An empty entry is
+honest, not a placeholder**: the card relabels itself "On Gumroad soon" and the buy
+button is `aria-disabled` instead of pointing at a dead link. No URL is ever
+invented.
 
 ## Assets
 
-- `assets/cards/*.webp` — 12 screenshots, compressed from the portfolio originals
-  (6.1 MB → 166 KB), lazy-loaded
+- `assets/cards/*.webp` — product screenshots, lazy-loaded
 - `assets/favicon.svg` — the mark
 
-Three.js is loaded from `cdn.jsdelivr.net` (as the portfolio does).
-
-## Gumroad setup
-
-1. Create products on Gumroad.
-2. Replace every `href="#"` on a `.btn-gumroad` with the real product URL.
-3. Until then, buttons show a "being set up" notice.
+Three.js loads from `cdn.jsdelivr.net`.
 
 ## Local preview
 
@@ -59,10 +70,12 @@ python -m http.server 8123 --bind 127.0.0.1
 ## Verification notes
 
 - `node --check` on the inline script passes; zero console errors on load.
-- Motion, frame rate and Lighthouse scores require a real browser — headless Chrome
-  reports `document.visibilityState === 'hidden'`, which stops `requestAnimationFrame`.
-- One improvement over the portfolio: `updateAllVP()` now re-measures only when the
-  pointer actually moved (the original called `getBoundingClientRect()` on every
-  character every frame).
-- `assets/nebula-*.webp` are currently **unreferenced** — kept because the nebula
-  background was requested earlier. Say the word and it goes back in behind the particles.
+- The cover-flow and all motion require a real browser. Headless Chrome reports
+  `document.visibilityState === 'hidden'`, which throttles `requestAnimationFrame`
+  to ~1fps, so the springs never converge there. To verify the gallery headlessly,
+  drive rAF with a timer in a throwaway copy.
+- `updateAllVP()` re-measures only when the pointer actually moved (the portfolio
+  original called `getBoundingClientRect()` on every character every frame).
+- Unreferenced files kept deliberately: `assets/cards/{whiteboard,video-call,
+  video-lesson-maker,language-tool,vocab-forge}.webp` — the free tools and the
+  VocabForge app that are intentionally not sold here.
