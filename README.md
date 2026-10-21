@@ -77,5 +77,5 @@ python -m http.server 8123 --bind 127.0.0.1
 - `updateAllVP()` re-measures only when the pointer actually moved (the portfolio
   original called `getBoundingClientRect()` on every character every frame).
 - Unreferenced files kept deliberately: `assets/cards/{whiteboard,video-call,
-  video-lesson-maker,language-tool,vocab-forge}.webp` — the free tools and the
-  VocabForge app that are intentionally not sold here.
+  language-tool,vocab-forge}.webp` — the free tools and the VocabForge app that
+  are intentionally not sold here.
