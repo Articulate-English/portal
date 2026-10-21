@@ -60,6 +60,29 @@ invented.
 
 Three.js loads from `cdn.jsdelivr.net`.
 
+## Tuning panel
+
+A "Tune the site" section at the end of the page lets a visitor adjust the visuals
+without touching code: three tabs (loading helix, particles, gallery cards), a live
+preview, and a Save button that persists to `localStorage` under `articulate-tune`.
+
+| Tab | Sliders |
+|---|---|
+| Loading helix | bar count, bar width, bar height, gap, glow strength, glow size, glow softness, spin, tilt |
+| Particles | front/back count, sphere size (front/back), front/back opacity, ring radius, back ring radius, hover radius, hover push, swell radius, swell amount |
+| Gallery cards | card width, card height, side spread, front depth, side depth, outer spread, outer depth, reflection gap, caption size |
+
+Everything is driven by one `TUNE` object (`TUNE_DEFAULTS` + `TUNE_SCHEMA`) that is
+merged from `localStorage` at load. Stored values are type-checked and clamped against
+the schema, so corrupt or hand-edited storage falls back to a safe default instead of
+throwing. The tuner edits a `draft` copy and only Save commits it.
+
+**The loader glow is a gradient, not a shadow.** The original `.dna-base` animated
+`box-shadow` and `filter: blur()`, which forced a layer re-raster every frame and made
+the glow pixelate. It is now a `radial-gradient` on a `.dna-glow` element animated by
+`opacity`, and the bar fill is a `.dna-fill` child animated by `transform: scaleY()` —
+compositor-only, no per-frame repaint.
+
 ## Local preview
 
 ```bash
