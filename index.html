@@ -624,6 +624,21 @@ cardData.forEach(function(card){
 applyGalleryTune();
 var bounceCards=[].slice.call(document.querySelectorAll('.bounce-card'));
 bounceCards.forEach(function(c,i){c._b.born=0;c._b.slot={x:(i-(bounceCards.length-1)/2)*85,y:0,rotate:10};});
+var hoveredCardIndex=-1;
+$cardRing.addEventListener('pointermove',function(e){
+  var rect=$cardRing.getBoundingClientRect();
+  var px=e.clientX-rect.left-rect.width/2, py=e.clientY-rect.top-rect.height/2;
+  var best=-1, bestDist=Infinity;
+  bounceCards.forEach(function(card,i){
+    var b=card._b, slot=b.slot||{x:0,y:0};
+    var half=200/2;
+    var d=Math.abs(px-slot.x);
+    if(d<bestDist && Math.abs(py-slot.y)<=half+12 && d<=half+12){bestDist=d;best=i;}
+  });
+  if(best!==hoveredCardIndex){hoveredCardIndex=best; if(best>=0) bounceCards[best]._b.vs-=2.2;}
+});
+$cardRing.addEventListener('pointerleave',function(){hoveredCardIndex=-1;});
+var galleryTime=0;
 
 /* ═══ BUY BUTTONS beneath the cards ═══ */
 /* Same rule as the cards: paste real Gumroad URLs, or the button honestly
@@ -961,16 +976,19 @@ function tick(now){
   if(galP>0){
     gallery.style.opacity='1';gallery.style.visibility='visible';
     floor.classList.add('visible');
+    galleryTime+=dt;
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var now=performance.now()/1000;
-    var hovered=-1;
-    // pick hovered by pointer (reuse simple: center card)
+    var hovered=reduce?-1:hoveredCardIndex;
     bounceCards.forEach(function(card,i){
       var b=card._b;
       var slot=b.slot||{x:0,y:0,rotate:0};
-      var appeared=reduce|| (now-b.born)>=0.5+i*0.06;
+      var born=0.5+i*0.06;
+      var appeared=reduce||galleryTime>=born;
       var targetX=slot.x,targetY=slot.y,targetRotate=slot.rotate,targetScale=appeared?1:0;
-      // spring step
+      if(hovered>=0 && appeared){
+        if(i===hovered){targetY=slot.y-200*0.04;targetRotate=0;targetScale=1.06;}
+        else{var dir=i<hovered?-1:1;targetX=slot.x+dir*160;}
+      }
       var stiff=210,damp=2*(reduce?1:0.72)*Math.sqrt(stiff);
       var popStiff=170,popDamp=2*(1-0.85*0.6)*Math.sqrt(popStiff);
       var dt2=Math.min(1/30,Math.max(1/240,dt));
@@ -984,13 +1002,15 @@ function tick(now){
         if(reduce){b.scale=targetScale;b.vs=0;}
         else{b.vs+=(targetScale-b.scale)*popStiff*dt2 - b.vs*popDamp*dt2;b.scale+=b.vs*dt2;}
       }
+      if(!appeared){b.x=slot.x;b.y=slot.y+40;b.rotate=slot.rotate;b.scale=0;}
       card.style.transform='translate(-50%, -50%) translate3d('+b.x.toFixed(2)+'px,'+b.y.toFixed(2)+'px,0) rotate('+b.rotate.toFixed(3)+'deg) scale('+Math.max(0,b.scale).toFixed(4)+')';
-      card.style.zIndex=String(i+1);
-      card.classList.toggle('is-active',false);
+      card.style.zIndex= (i===hovered)?String(bounceCards.length+1):String(i+1);
+      card.classList.toggle('is-active',i===hovered);
     });
   }else{
     gallery.style.opacity='0';gallery.style.visibility='hidden';
     floor.classList.remove('visible');
+    galleryTime=0;
   }
 
   updateAllVP();
