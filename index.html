@@ -36,6 +36,9 @@ body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif
 /* ── GALLERY ── */
 #galleryRoom{position:absolute;inset:0;z-index:30;perspective:1200px;display:flex;align-items:center;justify-content:center}
 .card-ring{position:relative;width:100%;height:100%;transform-style:preserve-3d;display:flex;align-items:center;justify-content:center}
+.bounce-card{position:absolute;left:50%;top:50%;width:var(--cardw,420px);height:var(--cardh,280px);transform:translate(-50%,-50%) scale(0);cursor:pointer;border:5px solid #fff;border-radius:25px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12),0 10px 28px -6px rgba(0,0,0,.32);will-change:transform}
+.bounce-card[data-active]{box-shadow:0 2px 4px rgba(0,0,0,.14),0 22px 44px -10px rgba(0,0,0,.42)}
+.bounce-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none}
 .ring-card{position:absolute;left:50%;top:50%;width:var(--cardw,420px);height:var(--cardh,280px);margin-left:calc(var(--cardw,420px)/-2);margin-top:calc(var(--cardh,280px)/-2);transform-style:preserve-3d;cursor:pointer}
 .ring-card-inner{position:relative;width:100%;height:100%;border-radius:12px;background:#0a0a12;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),inset 0 -2px 0 rgba(0,0,0,.35),0 10px 40px rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;transition:box-shadow .4s ease}
 .ring-card-reflect{position:absolute;top:calc(100% + var(--reflect,150px));left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;background:#000}
@@ -595,7 +598,7 @@ cardData.forEach(function(card){
     :'<span class="card-soon">On Gumroad soon</span>';
 
   var el=document.createElement('div');
-  el.className='ring-card';
+  el.className='bounce-card';
   el.innerHTML=
     '<div class="ring-card-inner">'+
       '<div class="ring-card-front">'+
@@ -608,9 +611,6 @@ cardData.forEach(function(card){
         '</div>'+
         action+
       '</div>'+
-    '</div>'+
-    '<div class="ring-card-reflect" aria-hidden="true">'+
-      '<img src="'+card.img+'" alt="" loading="lazy" decoding="async">'+
     '</div>';
 
   if(url)el.addEventListener('click',function(e){
@@ -618,11 +618,12 @@ cardData.forEach(function(card){
     window.open(url,'_blank','noopener');
   });
 
-  el._spring={tx:0,tz:-400,ry:0,op:0,vtx:0,vtz:0,vry:0,vop:0};
+  el._b={x:0,y:0,rotate:0,scale:0,vx:0,vy:0,vr:0,vs:0,born:0};
   $cardRing.appendChild(el);
 });
-applyGalleryTune();   /* honour saved gallery settings on load, not just on Save */
-var ringCards=[].slice.call(document.querySelectorAll('.ring-card'));
+applyGalleryTune();
+var bounceCards=[].slice.call(document.querySelectorAll('.bounce-card'));
+bounceCards.forEach(function(c,i){c._b.born=0;c._b.slot={x:(i-(bounceCards.length-1)/2)*85,y:0,rotate:10};});
 
 /* ═══ BUY BUTTONS beneath the cards ═══ */
 /* Same rule as the cards: paste real Gumroad URLs, or the button honestly
@@ -960,30 +961,33 @@ function tick(now){
   if(galP>0){
     gallery.style.opacity='1';gallery.style.visibility='visible';
     floor.classList.add('visible');
-    var total=ringCards.length;
-    var sp3=galP*(total-1),activeIdx=Math.max(0,Math.min(total-1,Math.round(sp3)));
-    var STIFF=.08,DAMP=.72;
-    if(!mobilePortrait){
-      ringCards.forEach(function(card,i){
-        var dist=i-activeIdx,s=card._spring,tx,tz,ry,g=TUNE.gallery;
-        if(dist===0){tx=0;tz=g.depth;ry=0;}
-        else if(dist===-1){tx:-g.spread;tz:g.backZ;ry=32;}
-        else if(dist===1){tx:g.spread;tz:g.backZ;ry:-32;}
-        else if(dist===-2){tx:-g.farSpread;tz:g.farZ;ry:42;}
-        else if(dist===2){tx:g.farSpread;tz:g.farZ;ry:-42;}
-        else{tx=0;tz:g.farZ2;ry:0;}
-        var op=(Math.abs(dist)>2)?0:1;
-        s.vtx+=(tx-s.tx)*STIFF;s.vtx*=DAMP;s.tx+=s.vtx;
-        s.vtz+=(tz-s.tz)*STIFF;s.vtz*=DAMP;s.tz+=s.vtz;
-        s.vry+=(ry-s.ry)*STIFF;s.vry*=DAMP;s.ry+=s.vry;
-        s.vop+=(op-s.op)*STIFF;s.vop*=DAMP;s.op+=s.vop;
-        card.style.transform='translateX('+s.tx.toFixed(1)+'px) translateZ('+s.tz.toFixed(1)+'px) rotateY('+s.ry.toFixed(1)+'deg)';
-        card.style.opacity=Math.max(0,Math.min(1,s.op)).toFixed(3);
-        card.style.zIndex=dist===0?'100':Math.abs(dist)===1?'50':'30';
-        card.style.pointerEvents=s.op>.3?'auto':'none';
-        card.classList.toggle('is-active',i===activeIdx);
-      });
-    }
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var now=performance.now()/1000;
+    var hovered=-1;
+    // pick hovered by pointer (reuse simple: center card)
+    bounceCards.forEach(function(card,i){
+      var b=card._b;
+      var slot=b.slot||{x:0,y:0,rotate:0};
+      var appeared=reduce|| (now-b.born)>=0.5+i*0.06;
+      var targetX=slot.x,targetY=slot.y,targetRotate=slot.rotate,targetScale=appeared?1:0;
+      // spring step
+      var stiff=210,damp=2*(reduce?1:0.72)*Math.sqrt(stiff);
+      var popStiff=170,popDamp=2*(1-0.85*0.6)*Math.sqrt(popStiff);
+      var dt2=Math.min(1/30,Math.max(1/240,dt));
+      for(var k=0;k<Math.ceil(dt/dt2);k++){
+        b.vx+=(targetX-b.x)*stiff*dt2 - b.vx*damp*dt2;
+        b.x+=b.vx*dt2;
+        b.vy+=(targetY-b.y)*stiff*dt2 - b.vy*damp*dt2;
+        b.y+=b.vy*dt2;
+        b.vr+=(targetRotate-b.rotate)*stiff*dt2 - b.vr*damp*dt2;
+        b.rotate+=b.vr*dt2;
+        if(reduce){b.scale=targetScale;b.vs=0;}
+        else{b.vs+=(targetScale-b.scale)*popStiff*dt2 - b.vs*popDamp*dt2;b.scale+=b.vs*dt2;}
+      }
+      card.style.transform='translate(-50%, -50%) translate3d('+b.x.toFixed(2)+'px,'+b.y.toFixed(2)+'px,0) rotate('+b.rotate.toFixed(3)+'deg) scale('+Math.max(0,b.scale).toFixed(4)+')';
+      card.style.zIndex=String(i+1);
+      card.classList.toggle('is-active',false);
+    });
   }else{
     gallery.style.opacity='0';gallery.style.visibility='hidden';
     floor.classList.remove('visible');
