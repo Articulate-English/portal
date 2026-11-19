@@ -555,6 +555,25 @@ cardData.forEach(function(card){
   $cardRing.appendChild(el);
 });
 applyGalleryTune();
+
+/* A tune saved in the private lab (stored on the Worker) is the source of truth —
+   the lab is on another origin, so it cannot write this origin's localStorage. */
+fetch('https://ae-sliding-in.billiethomasonsound.workers.dev/portal-tune',{headers:{'Accept':'application/json'}})
+  .then(function(r){return r.ok?r.json():null;})
+  .then(function(raw){
+    if(!raw||!raw.tune||typeof raw.tune!=='object')return;
+    var saved=raw.tune;
+    ['particles','gallery'].forEach(function(group){
+      if(!saved[group]||typeof saved[group]!=='object')return;
+      Object.keys(saved[group]).forEach(function(k){
+        var v=saved[group][k];
+        if(typeof v==='number'&&isFinite(v)&&TUNE[group]&&k in TUNE[group])TUNE[group][k]=v;
+      });
+    });
+    applyTune();
+  })
+  .catch(function(){/* Worker unreachable — the localStorage tune still applies */});
+
 var bounceCards=[].slice.call(document.querySelectorAll('.bounce-card'));
 bounceCards.forEach(function(c,i){c._b.born=0;c._b.slot={x:(i-(bounceCards.length-1)/2)*85,y:0,rotate:10};});
 var hoveredCardIndex=-1;
