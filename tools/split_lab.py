@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """Split the portal: settings leave the public page and move to a private lab.
 
+NOTE: this script predates the lab moving off GitHub Pages. Re-running it would
+recreate a PUBLIC lab.html in this repo — do not run it now. The lab lives on the
+Cloudflare Worker (sliding-in-backend/portal-lab.html); see tools/build_lab_js.py.
+
 - index.html keeps reading localStorage['articulate-tune'] and applying it, but
   loses the tuner section, its CSS, the DNA loading helix and the loader schema.
 - lab.html is a standalone page carrying the tuner. Saving there writes the same
