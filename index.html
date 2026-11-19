@@ -106,54 +106,12 @@ body{background:var(--bg);color:var(--text-cream);font-family:'Inter',sans-serif
   .ring-card-reflect{display:none}
 }
 
-/* ── LOADER ── */
-.loading-screen{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
-.label-sm{font-family:'Inter',sans-serif;font-size:.95rem;color:#b794f4;letter-spacing:.12em;text-transform:uppercase;animation:pulseGlow 1.8s ease-in-out infinite}
-@keyframes pulseGlow{0%,100%{opacity:.75}50%{opacity:1}}
-/* var-driven so the tuner can drive every value. The glow is a gradient on a
-   separate element, never a box-shadow and never a filter — animating box-shadow
-   forces a layer re-raster every frame, which is what made it pixelate. */
-.dna-helix{--bw:12px;--bh:110px;--bgap:14px;--glowop:.7;--glowscale:1;--glowsoft:72%;display:flex;align-items:center;justify-content:center;gap:var(--bgap);height:140px;position:relative;perspective:400px}
-.dna-slot{position:relative;transform-style:preserve-3d;transform-origin:center center;will-change:transform}
-.dna-bar{width:var(--bw);height:var(--bh);border-radius:4px;background-color:#2d1255;position:relative;overflow:hidden}
-.dna-fill{position:absolute;inset:0;border-radius:inherit;background-image:linear-gradient(to top,#22d3ee 0%,#8b5cf6 40%,#4c1d95 100%);transform-origin:bottom;transform:scaleY(0);will-change:transform}
-.dna-glow{position:absolute;left:50%;top:50%;z-index:-1;pointer-events:none;width:calc(var(--bw)*7);height:calc(var(--bh)*1.6);border-radius:999px;opacity:0;transform:translate(-50%,-50%) scale(var(--glowscale));background:radial-gradient(closest-side,rgba(255,255,255,var(--glowop)),rgba(255,255,255,0) var(--glowsoft))}
-
-
-/* ── TUNER ── */
-.tuner{position:relative;z-index:20;background:#000;border-top:1px solid rgba(139,92,246,.18);padding:3.4rem 2rem 5rem}
-.tuner-head{max-width:760px;margin:0 auto 2rem;text-align:center}
-.tuner-head h2{font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.6rem}
-.tuner-head p{color:var(--text-dim);font-size:1rem}
-.tuner-tabs{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem}
-.tune-tab{padding:.6em 1.3em;min-height:44px;border-radius:999px;border:1px solid rgba(139,92,246,.3);background:rgba(255,255,255,.05);color:var(--text-cream);font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .25s,border-color .25s}
-.tune-tab:hover{border-color:var(--purple)}
-.tune-tab.is-active{background:var(--purple);border-color:var(--purple)}
-.tuner-body{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:2rem;align-items:start}
-@media(max-width:900px){.tuner-body{grid-template-columns:1fr}}
-.tune-preview{position:relative;background:#05060f;border:1px solid rgba(139,92,246,.22);border-radius:18px;min-height:340px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.tune-preview .pv-label{position:absolute;top:.9rem;left:1.1rem;font-family:'Inter',sans-serif;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);z-index:3}
-.tune-controls{display:flex;flex-direction:column;gap:1.05rem}
-.tune-field{display:flex;flex-direction:column;gap:.4rem}
-.tune-field-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
-.tune-field label{font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;color:var(--text-cream)}
-.tune-field output{font-family:'Oswald',sans-serif;font-size:1rem;color:#c4b5fd;font-variant-numeric:tabular-nums}
-.tune-field input[type=range]{width:100%;height:28px;-webkit-appearance:none;appearance:none;background:transparent;cursor:pointer;padding:0}
-.tune-field input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:999px;background:rgba(139,92,246,.3)}
-.tune-field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;margin-top:-7px;border-radius:50%;background:var(--purple);border:2px solid #fff}
-.tune-field input[type=range]::-moz-range-track{height:4px;border-radius:999px;background:rgba(139,92,246,.3)}
-.tune-field input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--purple);border:2px solid #fff}
-.tuner-foot{max-width:1080px;margin:2rem auto 0;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.tune-save{padding:.75em 2.2em;min-height:44px;border-radius:999px;border:0;background:var(--purple);color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s}
-.tune-save:hover{background:#7c3aed}
-.tune-reset{padding:.75em 1.8em;min-height:44px;border-radius:999px;border:1px solid rgba(139,92,246,.3);background:transparent;color:var(--text-cream);font-family:'Inter',sans-serif;font-size:1rem;font-weight:600;cursor:pointer}
-.tune-reset:hover{border-color:var(--purple)}
-.tune-status{font-family:'Inter',sans-serif;font-size:.95rem;color:#c4b5fd;min-height:1.2em}
-.pv-canvas{display:block;width:100%;height:340px}
-.pv-cards{display:flex;align-items:center;justify-content:center;height:340px;perspective:900px;gap:0}
-.pv-card{border-radius:10px;background:#0a0a12;border:1px solid rgba(139,92,246,.3);display:flex;align-items:flex-end;padding:.7rem;box-sizing:border-box}
-.pv-card span{font-family:'Oswald',sans-serif;text-transform:uppercase;color:var(--text-cream);line-height:1.2}
-.pv-note{position:absolute;bottom:.9rem;left:1.1rem;right:1.1rem;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--text-dim)}
+/* ── SCROLL CUE ── */
+.scroll-cue{width:26px;height:26px;border-right:2px solid var(--purple);
+  border-bottom:2px solid var(--purple);transform:rotate(45deg);
+  animation:cueBob 2.2s ease-in-out infinite}
+@keyframes cueBob{0%,100%{transform:rotate(45deg) translate(0,0);opacity:.5}
+  50%{transform:rotate(45deg) translate(6px,6px);opacity:1}}
 
 /* ── A11Y ── */
 .skip-link{position:absolute;top:-100px;left:1rem;z-index:99999;background:var(--purple);color:#fff;padding:.7rem 1.2rem;border-radius:999px;font-weight:600;text-decoration:none;transition:top .3s}
@@ -178,16 +136,6 @@ html[data-theme="light"] .buy-btn.primary{background:#7c3aed;border-color:#7c3ae
 html[data-theme="light"] .buy-amt{color:#5b21b6}
 html[data-theme="light"] .buy-btn.primary .buy-amt{color:#fff}
 html[data-theme="light"] .label-sm{color:#6d28d9}
-html[data-theme="light"] .tuner{background:var(--bg);border-top-color:rgba(76,29,149,.2)}
-html[data-theme="light"] .tune-tab{background:#fff;border-color:rgba(76,29,149,.25);color:var(--text-cream)}
-html[data-theme="light"] .tune-tab.is-active{background:#7c3aed;border-color:#7c3aed;color:#fff}
-html[data-theme="light"] .tune-preview{background:#fff;border-color:rgba(76,29,149,.2)}
-html[data-theme="light"] .tune-field input[type=range]::-webkit-slider-runnable-track{background:rgba(76,29,149,.25)}
-html[data-theme="light"] .tune-save{background:#7c3aed}
-html[data-theme="light"] .tune-reset{background:#fff;border-color:rgba(76,29,149,.25)}
-html[data-theme="light"] .pv-card{background:#f5f3ff;border-color:rgba(76,29,149,.25)}
-html[data-theme="light"] .pv-card span{color:var(--text-cream)}
-html[data-theme="light"] .dna-bar{background-color:#cfc6f5}
 html[data-theme="light"] .landscape-overlay{background:rgba(245,243,255,.98)}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -209,7 +157,7 @@ html[data-theme="light"] .landscape-overlay{background:rgba(245,243,255,.98)}
   <div class="sticky">
     <div class="loading-screen" id="loader">
       <div class="label-sm">keep scrolling down</div>
-      <div class="dna-helix" id="dnaHelix"></div>
+      <div class="scroll-cue" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -250,27 +198,6 @@ html[data-theme="light"] .landscape-overlay{background:rgba(245,243,255,.98)}
   <a class="buy-btn primary" href="#" data-bundle="full-library"><span class="buy-label">Get the library</span><span class="buy-amt">$49</span></a>
 </section>
 
-<section class="tuner" id="tuner">
-  <div class="tuner-head">
-    <h2>Tune the site</h2>
-    <p>Move a slider and the preview updates live. Press Save to apply it to the page and keep it.</p>
-  </div>
-  <div class="tuner-tabs" id="tuneTabs" role="group" aria-label="Element to tune">
-    <button class="tune-tab is-active" data-target="loader" type="button" aria-pressed="true">Loading helix</button>
-    <button class="tune-tab" data-target="particles" type="button" aria-pressed="false">Particles</button>
-    <button class="tune-tab" data-target="gallery" type="button" aria-pressed="false">Gallery cards</button>
-  </div>
-  <div class="tuner-body">
-    <div class="tune-preview" id="tunePreview" aria-label="Live preview of the selected element"></div>
-    <div class="tune-controls" id="tuneControls"></div>
-  </div>
-  <div class="tuner-foot">
-    <button class="tune-save" id="tuneSave" type="button">Save</button>
-    <button class="tune-reset" id="tuneReset" type="button">Reset</button>
-    <span class="tune-status" id="tuneStatus" role="status" aria-live="polite"></span>
-  </div>
-</section>
-
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 <script>
 (function(){
@@ -299,22 +226,10 @@ if(themeBtn)themeBtn.addEventListener('click',function(){
 /* ═══ TUNE — persisted site parameters + on-page tuner ═══ */
 var TUNE_KEY='articulate-tune';
 var TUNE_DEFAULTS={
-  loader:{bars:13,barW:12,barH:110,gap:14,glowOp:.7,glowScale:1,glowSoft:72,spin:12,tilt:25},
   particles:{pCount:200,bCount:250,pSize:.65,bSize:.7,pOp:.9,bOp:.8,ring:7,bgRing:10,repelRadius:12,repelStrength:20,swellRadius:.22,swellStrength:2},
   gallery:{cardW:420,cardH:280,spread:370,depth:120,backZ:-130,farSpread:550,farZ:-230,farZ2:-400,reflect:150,capSize:16.8}
 };
 var TUNE_SCHEMA={
-  loader:[
-    {k:'bars',l:'Bar count',min:1,max:24,step:1,u:''},
-    {k:'barW',l:'Bar width',min:4,max:28,step:1,u:'px'},
-    {k:'barH',l:'Bar height',min:40,max:220,step:2,u:'px'},
-    {k:'gap',l:'Gap',min:0,max:48,step:1,u:'px'},
-    {k:'glowOp',l:'Glow strength',min:0,max:1,step:.01,u:''},
-    {k:'glowScale',l:'Glow size',min:.2,max:2.5,step:.05,u:'\u00d7'},
-    {k:'glowSoft',l:'Glow softness',min:55,max:98,step:1,u:'%'},
-    {k:'spin',l:'Spin',min:0,max:24,step:1,u:''},
-    {k:'tilt',l:'Tilt',min:0,max:45,step:1,u:'\u00b0'}
-  ],
   particles:[
     {k:'pCount',l:'Front count',min:0,max:500,step:10,u:''},
     {k:'bCount',l:'Back count',min:0,max:500,step:10,u:''},
@@ -592,15 +507,15 @@ var GUMROAD_URLS={
 };
 
 var cardData=[
-  {name:'IELTS Speaking Mastery',img:'assets/cards/ielts-speaking-portal.webp',price:'$29',slug:'ielts-speaking-mastery'},
-  {name:'IELTS Slide Decks',img:'assets/cards/ielts-speaking.webp',price:'$12.99',slug:'ielts-slide-decks'},
-  {name:'IELTS Speaking Packs',img:'assets/cards/ielts-writing-essays.webp',price:'',slug:'ielts-speaking-packs'},
-  {name:'Exam Speaking Practice',img:'assets/cards/b1-grammar.webp',price:'',slug:'exam-speaking-practice'},
-  {name:'Speaking Slide Decks',img:'assets/cards/linking-words.webp',price:'',slug:'speaking-slide-decks'},
-  {name:'Speaking: Sliding In',img:'assets/cards/sliding-in.webp',price:'$12',slug:'sliding-in'},
-  {name:'Travel English',img:'assets/cards/language-tool.webp',price:'',slug:'travel-english'},
-  {name:'Banking & Investment English',img:'assets/cards/vocab-forge.webp',price:'',slug:'banking-investment-english'},
-  {name:'Business English',img:'assets/cards/whiteboard.webp',price:'',slug:'business-english'}
+  {name:'IELTS Speaking Mastery',img:'assets/cards/ielts-speaking-mastery.png',price:'$29',slug:'ielts-speaking-mastery'},
+  {name:'IELTS Slide Decks',img:'assets/cards/ielts-slide-decks.png',price:'$12.99',slug:'ielts-slide-decks'},
+  {name:'IELTS Speaking Packs',img:'assets/cards/ielts-speaking-packs.png',price:'',slug:'ielts-speaking-packs'},
+  {name:'Exam Speaking Practice',img:'assets/cards/exam-speaking-practice.png',price:'',slug:'exam-speaking-practice'},
+  {name:'Speaking Slide Decks',img:'assets/cards/speaking-slide-decks.png',price:'',slug:'speaking-slide-decks'},
+  {name:'Speaking: Sliding In',img:'assets/cards/sliding-in.png',price:'$12',slug:'sliding-in'},
+  {name:'Travel English',img:'assets/cards/travel-english.png',price:'',slug:'travel-english'},
+  {name:'Banking & Investment English',img:'assets/cards/banking-investment-english.png',price:'',slug:'banking-investment-english'},
+  {name:'Business English',img:'assets/cards/business-english.png',price:'',slug:'business-english'}
 ];
 
 var $cardRing=document.getElementById('cardRing');
@@ -702,61 +617,11 @@ function applyGalleryTune(){
   }
 }
 function applyTune(){
-  rebuildDna();
   /* ten of the twelve particle sliders are read live per-frame; only the
      counts need a geometry rebuild. */
   if(TUNE.particles.pCount!==builtP||TUNE.particles.bCount!==builtB)buildParticles();
   applyGalleryTune();
 }
-
-/* ═══ DNA LOADER (tuner-driven) ═══ */
-var dnaHelix=document.getElementById('dnaHelix');
-var dna=null;
-function createDnaHelix(host,p){
-  host.innerHTML='';
-  var slots=[];
-  for(var i=0;i<p.bars;i++){
-    var slot=document.createElement('div');slot.className='dna-slot';
-    var glow=document.createElement('div');glow.className='dna-glow';
-    var bar=document.createElement('div');bar.className='dna-bar';
-    var fill=document.createElement('div');fill.className='dna-fill';
-    bar.appendChild(fill);
-    slot.appendChild(glow);slot.appendChild(bar);
-    host.appendChild(slot);
-    slots.push({slot:slot,glow:glow,bar:bar,fill:fill,sp:0});
-  }
-  var api={
-    slots:slots,
-    relayout:function(q){
-      q=q||p;
-      host.style.setProperty('--bw',q.barW+'px');
-      host.style.setProperty('--bh',q.barH+'px');
-      host.style.setProperty('--bgap',q.gap+'px');
-      host.style.setProperty('--glowop',q.glowOp);
-      host.style.setProperty('--glowscale',q.glowScale);
-      host.style.setProperty('--glowsoft',q.glowSoft+'%');
-    },
-    apply:function(helixP){
-      var n=slots.length;if(!n)return;
-      var span=1/n;
-      for(var i=0;i<n;i++){
-        var s=slots[i];
-        var targetP=clamp01((helixP-i*span)/span);
-        s.sp+=(targetP-s.sp)*.08;
-        var sp=s.sp;
-        var rotY=helixP*p.spin*Math.PI+(i/n)*Math.PI*2;
-        s.slot.style.transform='rotateY('+(rotY*180/Math.PI).toFixed(1)+'deg) rotateX('+p.tilt+'deg)';
-        s.fill.style.transform='scaleY('+smoothstep(sp).toFixed(4)+')';
-        s.bar.style.opacity=(.25+smoothstep(sp)*.75).toFixed(3);
-        s.glow.style.opacity=(smoothstep(sp)*p.glowOp).toFixed(3);
-      }
-    }
-  };
-  api.relayout(p);
-  return api;
-}
-function rebuildDna(){ dna=createDnaHelix(dnaHelix,TUNE.loader); }
-rebuildDna();
 
 /* ═══ LANDSCAPE PROMPT ═══ */
 var landscapeOverlay=document.getElementById('landscapeOverlay'),loDismissed=false;
@@ -770,184 +635,6 @@ window.addEventListener('orientationchange',function(){setTimeout(checkOrientati
 var loLastW=window.innerWidth;
 window.addEventListener('resize',function(){if(window.innerWidth!==loLastW){loLastW=window.innerWidth;checkOrientation();}});
 document.getElementById('loOkBtn').addEventListener('click',function(){loDismissed=true;landscapeOverlay.style.display='none';});
-
-/* ═══ TUNER UI — live preview + sliders + save ═══ */
-(function(){
-  var host=document.getElementById('tuner');
-  if(!host)return;
-  var tabsEl=document.getElementById('tuneTabs'),
-      controlsEl=document.getElementById('tuneControls'),
-      previewEl=document.getElementById('tunePreview'),
-      saveEl=document.getElementById('tuneSave'),
-      resetEl=document.getElementById('tuneReset'),
-      statusEl=document.getElementById('tuneStatus');
-
-  var target='loader';
-  var draft=JSON.parse(JSON.stringify(TUNE));
-  var pvHelix=null, pvCanvas=null, pvT=0, pvVisible=false, pvStatic=false;
-  var LABELS={loader:'loading helix',particles:'particle ring',gallery:'cover-flow cards'};
-
-  function fmt(v,f){return (f.step<1?v.toFixed(2):Math.round(v))+(f.u?' '+f.u:'');}
-
-  function renderTabs(){
-    tabsEl.querySelectorAll('.tune-tab').forEach(function(b){
-      var on=b.getAttribute('data-target')===target;
-      b.classList.toggle('is-active',on);
-      b.setAttribute('aria-pressed',on?'true':'false');
-    });
-  }
-
-  function sizePvCards(){
-    previewEl.querySelectorAll('.pv-card').forEach(function(c){
-      c.style.width=(draft.gallery.cardW*.42)+'px';
-      c.style.height=(draft.gallery.cardH*.42)+'px';
-      var sp=c.querySelector('span');
-      if(sp)sp.style.fontSize=Math.max(10,draft.gallery.capSize*.42)+'px';
-    });
-  }
-
-  function drawPvParticles(){
-    if(!pvCanvas)return;
-    var ctx=pvCanvas.getContext('2d'),w=pvCanvas.width,h=pvCanvas.height,q=draft.particles;
-    ctx.clearRect(0,0,w,h);
-    ctx.fillStyle='#05060f';ctx.fillRect(0,0,w,h);
-    var cx=w/2,cy=h/2,i,a,R;
-    R=Math.min(w,h)*.42*(q.bgRing/10);
-    for(i=0;i<q.bCount;i++){
-      a=(i/q.bCount)*Math.PI*2;
-      ctx.beginPath();
-      ctx.arc(cx+Math.cos(a)*R,cy+Math.sin(a)*R*.5,Math.max(.6,q.bSize*7),0,Math.PI*2);
-      ctx.fillStyle='rgba(200,75,255,'+(q.bOp*.7).toFixed(3)+')';
-      ctx.fill();
-    }
-    R=Math.min(w,h)*.30*(q.ring/7);
-    for(i=0;i<q.pCount;i++){
-      a=(i/q.pCount)*Math.PI*2;
-      ctx.beginPath();
-      ctx.arc(cx+Math.cos(a)*R,cy+Math.sin(a)*R*.5,Math.max(.6,q.pSize*7),0,Math.PI*2);
-      ctx.fillStyle='rgba(34,211,238,'+(q.pOp*.85).toFixed(3)+')';
-      ctx.fill();
-    }
-  }
-
-  function renderPreview(){
-    stopPv();
-    previewEl.innerHTML='';
-    pvHelix=null; pvCanvas=null; pvStatic=false;
-
-    var lab=document.createElement('div');
-    lab.className='pv-label';
-    lab.textContent=LABELS[target]+' \u2014 live preview';
-    previewEl.appendChild(lab);
-
-    /* decorative: the preview must not be read as catalogue content */
-    var stage=document.createElement('div');
-    stage.setAttribute('aria-hidden','true');
-    stage.style.cssText='display:flex;align-items:center;justify-content:center;width:100%;height:100%';
-    previewEl.appendChild(stage);
-
-    if(target==='loader'){
-      var h=document.createElement('div');
-      h.className='dna-helix'; h.style.height='340px';
-      stage.appendChild(h);
-      pvHelix=createDnaHelix(h,draft.loader);
-    }else if(target==='particles'){
-      pvCanvas=document.createElement('canvas');
-      pvCanvas.className='pv-canvas';
-      pvCanvas.width=Math.max(320,Math.round(previewEl.clientWidth||600));
-      pvCanvas.height=340;
-      stage.appendChild(pvCanvas);
-      drawPvParticles();
-      var note=document.createElement('div');
-      note.className='pv-note';
-      note.textContent='Representative view \u2014 the live ring is a 3D particle cloud.';
-      stage.appendChild(note);
-    }else{
-      var row=document.createElement('div'); row.className='pv-cards';
-      ['Product one','Product two','Product three'].forEach(function(t){
-        var c=document.createElement('div'); c.className='pv-card';
-        var sp=document.createElement('span'); sp.textContent=t;
-        c.appendChild(sp); row.appendChild(c);
-      });
-      stage.appendChild(row);
-      sizePvCards();
-    }
-    startPv();
-  }
-
-  function renderControls(){
-    controlsEl.innerHTML='';
-    TUNE_SCHEMA[target].forEach(function(f){
-      var wrap=document.createElement('div'); wrap.className='tune-field';
-      var top=document.createElement('div'); top.className='tune-field-top';
-      var lab=document.createElement('label');
-      lab.setAttribute('for','tf-'+target+'-'+f.k); lab.textContent=f.l;
-      var out=document.createElement('output');
-      out.setAttribute('for','tf-'+target+'-'+f.k);
-      var v=draft[target][f.k];
-      out.textContent=fmt(v,f);
-      var inp=document.createElement('input');
-      inp.type='range'; inp.id='tf-'+target+'-'+f.k;
-      inp.min=f.min; inp.max=f.max; inp.step=f.step; inp.value=v;
-      inp.addEventListener('input',function(){
-        var nv=parseFloat(inp.value);
-        draft[target][f.k]=nv;
-        out.textContent=fmt(nv,f);
-        if(target==='loader'&&pvHelix)pvHelix.relayout(draft.loader);
-        else if(target==='particles')drawPvParticles();
-        else sizePvCards();
-      });
-      top.appendChild(lab); top.appendChild(out);
-      wrap.appendChild(top); wrap.appendChild(inp);
-      controlsEl.appendChild(wrap);
-    });
-  }
-
-  function pvTick(){
-    if(!pvVisible)return;
-    if(REDUCED){ if(pvHelix&&!pvStatic){pvStatic=true;pvHelix.apply(.55);} return; }
-    pvT+=0.005;
-    if(pvHelix)pvHelix.apply((pvT%1.6)/1.6);
-  }
-  /* runs inside the site's single rAF, not a second loop */
-  function startPv(){ pvTickFn=pvTick; }
-  function stopPv(){ if(pvTickFn===pvTick)pvTickFn=null; }
-
-  tabsEl.addEventListener('click',function(e){
-    var b=e.target.closest('.tune-tab');
-    if(!b)return;
-    target=b.getAttribute('data-target');
-    renderTabs(); renderPreview(); renderControls();
-    statusEl.textContent='';
-  });
-
-  saveEl.addEventListener('click',function(){
-    TUNE=JSON.parse(JSON.stringify(draft));
-    var stored=false;
-    try{localStorage.setItem(TUNE_KEY,JSON.stringify(TUNE));stored=true;}catch(e){}
-    applyTune();
-    statusEl.textContent=stored?'Saved \u2014 applied to the page.'
-                               :'Applied, but could not be saved (storage unavailable).';
-  });
-
-  resetEl.addEventListener('click',function(){
-    draft=JSON.parse(JSON.stringify(TUNE_DEFAULTS));
-    TUNE=JSON.parse(JSON.stringify(TUNE_DEFAULTS));
-    try{localStorage.removeItem(TUNE_KEY);}catch(e){}
-    applyTune();
-    renderTabs(); renderPreview(); renderControls();
-    statusEl.textContent='Reset to defaults.';
-  });
-
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en){
-      pvVisible=en[0].isIntersecting;
-      if(pvVisible)startPv(); else stopPv();
-    },{threshold:.05}).observe(host);
-  }else{pvVisible=true;}
-
-  renderTabs(); renderPreview(); renderControls();
-})();
 
 /* ═══ TICK (portfolio loop, 30fps cap) ═══ */
 var prevTime=0,lastFrame=0,MIN_MS=1000/30;
@@ -970,9 +657,8 @@ function tick(now){
   var rp=roomData.map(function(r){return r.progress;});
   var mobilePortrait=viewW<=768&&viewH>viewW;
 
-  var helixP=rp[0],loader=document.getElementById('loader');
-  if(dna&&helixP>0&&helixP<1)dna.apply(helixP);
-  loader.style.opacity=helixP>=.98?'0':'1';
+  var helixP=rp[0],loaderEl=document.getElementById('loader');
+  if(loaderEl)loaderEl.style.opacity=helixP>=.98?'0':'1';
 
   if(pts&&bgPts){var ps2=lerp(.01,1,smoothstep(rp[1]));pts.scale.set(ps2,ps2,ps2);bgPts.scale.set(ps2,ps2,ps2);}
 
@@ -1048,12 +734,6 @@ function tick(now){
 prevTime=performance.now();
 
 var autoplayActive=false,autoplaySpeed=0,autoplayDir=1,autoplayTimer=null,autoplayMaxY=0;
-var tunerEngaged=false;   /* set by the tuner UI once the user starts tuning */
-function tunerBusy(){
-  if(tunerEngaged)return true;
-  var t=document.getElementById('tuner');
-  return !!(t&&(t.matches(':hover')||t.contains(document.activeElement)));
-}
 function armAutoplay(){
   clearTimeout(autoplayTimer);
   autoplayTimer=setTimeout(function(){
@@ -1065,7 +745,6 @@ function armAutoplay(){
 function pauseAutoplay(){
   autoplayActive=false;
   clearTimeout(autoplayTimer);
-  if(tunerBusy())return;   /* never drag the page away mid-tune */
   armAutoplay();
 }
 armAutoplay();
@@ -1076,5 +755,6 @@ window.scrollTo(0,0);
 requestAnimationFrame(tick);
 })();
 </script>
+
 </body>
 </html>
