@@ -36,7 +36,7 @@ deliberately **not** listed here.
 | B1 Grammar Lessons | $12.99 | 12 lesson pages |
 | B2 Grammar Lessons | $12.99 | 10 lesson pages |
 | Linking Words B1–C2 | $6.99 | four decks of cohesive devices |
-| Speaking: Sliding In | $9.99 | question-card deck |
+| Speaking: Sliding In | $75 | complete collection (4 decks, 1,452 questions) |
 
 Each card carries its title, price and buy link. The caption is only drawn on the
 focused card, so the cover-flow never stacks text on text.
